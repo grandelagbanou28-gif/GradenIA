@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Grden IA</title>
+    <meta name="description" content="Documentation complete de Grden IA - Guide d'utilisation, fonctionnalites et configuration.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">🤖</span>
+                <span class="logo-text">Grden IA</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="docs.html" class="nav-link active">Documentation</a>
+                <a href="installation.html" class="nav-link">Installation</a>
+                <a href="api.html" class="nav-link">API</a>
+                <a href="screenshots.html" class="nav-link">Captures</a>
+                <a href="https://github.com/grandelagbanou28-gif/GrdenIA" class="nav-link nav-github" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+            </div>
+            <button class="nav-toggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>Documentation</h1>
+            <p>Tout ce que vous devez savoir pour utiliser Grden IA</p>
+        </section>
+
+        <div class="doc-content">
+            <h2>Introduction</h2>
+            <p>
+                <strong>Grden IA</strong> est une interface de chat IA intelligente, rapide et entierement personnalisee.
+                Elle est basee sur Open WebUI et utilise Ollama pour les modeles locaux ou Gemini pour les modeles distants.
+            </p>
+
+            <div class="info-box">
+                <strong>Note :</strong> Grden IA fonctionne sur Windows, Linux et Mac. L'application desktop est disponible pour Windows.
+            </div>
+
+            <h2>Table des matieres</h2>
+            <ul>
+                <li><a href="#quick-start">Demarrage rapide</a></li>
+                <li><a href="#features">Fonctionnalites</a></li>
+                <li><a href="#models">Modeles IA</a></li>
+                <li><a href="#configuration">Configuration</a></li>
+                <li><a href="#desktop">Application Desktop</a></li>
+                <li><a href="#docker">Docker</a></li>
+                <li><a href="#troubleshooting">Depannage</a></li>
+            </ul>
+
+            <h2 id="quick-start">Demarrage rapide</h2>
+            <p>Pour commencer a utiliser Grden IA :</p>
+            <ol>
+                <li>Installez <a href="https://ollama.com" target="_blank">Ollama</a></li>
+                <li>Clonez le depot : <code>git clone https://github.com/grandelagbanou28-gif/GrdenIA.git</code></li>
+                <li>Installez les dependances : <code>pip install -r requirements.txt</code></li>
+                <li>Lancez l'application : <code>python launch.py</code></li>
+                <li>Ouvrez <code>http://localhost:8080</code> dans votre navigateur</li>
+            </ol>
+
+            <h2 id="features">Fonctionnalites</h2>
+
+            <h3>Chat IA</h3>
+            <p>Discutez avec des modeles IA locaux ou distants. L'interface est fluide et intuitive.</p>
+
+            <h3>Multi-modeles</h3>
+            <p>Utilisez plusieurs modeles en meme temps. Changez de modele en un clic.</p>
+
+            <h3>Upload de fichiers</h3>
+            <p>Envoyez des fichiers ou des dossiers pour les analyser. Le code, les documents, tout est analysable.</p>
+
+            <h3>Conversations</h3>
+            <p>Gardez un historique de toutes vos conversations. Recherchez dans les messages passes.</p>
+
+            <h3>Mode sombre/clair</h3>
+            <p>L'interface s'adapte a vos preferences. Passez du mode clair au mode sombre en un clic.</p>
+
+            <h2 id="models">Modeles IA</h2>
+            <p>Grden IA supporte tous les modeles disponibles via Ollama :</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Modele</th>
+                        <th>Taille</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>qwen2.5:0.5b</code></td>
+                        <td>397 MB</td>
+                        <td>Modele rapide pour les PC modestes</td>
+                    </tr>
+                    <tr>
+                        <td><code>qwen2.5-coder:1.5b</code></td>
+                        <td>986 MB</td>
+                        <td>Optimise pour la programmation</td>
+                    </tr>
+                    <tr>
+                        <td><code>gemma3:1b</code></td>
+                        <td>800 MB</td>
+                        <td>Modele polyvalent</td>
+                    </tr>
+                    <tr>
+                        <td><code>llama3.1:8b</code></td>
+                        <td>4.7 GB</td>
+                        <td>Haute qualite, necessite plus de RAM</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Telecharger un modele</h3>
+            <pre><code># Telecharger un modele
+ollama pull qwen2.5:0.5b
+
+# Lister les modeles installes
+ollama list</code></pre>
+
+            <h2 id="configuration">Configuration</h2>
+            <p>Grden IA est configure par defaut pour fonctionner immediatement. Vous pouvez personnaliser :</p>
+
+            <h3>Variables d'environnement</h3>
+            <pre><code># .env
+WEBUI_NAME=Grden IA
+OLLAMA_BASE_URL=http://localhost:11434
+WEBUI_SECRET_KEY=votre-cle-secrete
+DEFAULT_MODELS=qwen2.5:0.5b,qwen2.5-coder:1.5b</code></pre>
+
+            <h3>Gemini API</h3>
+            <p>Pour utiliser Gemini :</p>
+            <ol>
+                <li>Obtenez une cle sur <a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a></li>
+                <li>Dans l'interface, allez dans <strong>Admin Settings → Connections</strong></li>
+                <li>Ajoutez votre cle API</li>
+            </ol>
+
+            <h2 id="desktop">Application Desktop</h2>
+            <p>Grden IA peut etre lance comme une application desktop native :</p>
+            <pre><code># Installer pywebview
+pip install pywebview
+
+# Lancer l'application desktop
+python graden_desktop.py</code></pre>
+
+            <div class="warning-box">
+                <strong>Attention :</strong> L'application desktop est actuellement disponible uniquement pour Windows.
+            </div>
+
+            <h2 id="docker">Docker</h2>
+            <p>Pour lancer avec Docker :</p>
+            <pre><code># Cloner le depot
+git clone https://github.com/grandelagbanou28-gif/GrdenIA.git
+cd GrdenIA
+
+# Lancer avec Docker Compose
+docker-compose up -d
+
+# Voir les logs
+docker-compose logs -f</code></pre>
+
+            <h2 id="troubleshooting">Depannage</h2>
+
+            <h3>Ollama ne demarre pas</h3>
+            <p>Verifiez qu'Ollama est en cours d'execution :</p>
+            <pre><code># Verifier le statut
+curl http://localhost:11434/api/tags
+
+# Demarrer Ollama
+ollama serve</code></pre>
+
+            <h3>Port deja utilise</h3>
+            <p>Changez le port dans <code>launch.py</code> :</p>
+            <pre><code>uvicorn.run(app, host='0.0.0.0', port=8081)</code></pre>
+
+            <h3>Modeles non disponibles</h3>
+            <p>Telechargez un modele :</p>
+            <pre><code>ollama pull qwen2.5:0.5b</code></pre>
+
+            <h2>Besoin d'aide ?</h2>
+            <p>
+                Consultez la <a href="https://github.com/grandelagbanou28-gif/GrdenIA/blob/main/SUPPORT.md" target="_blank">documentation complete</a> ou
+                ouvrez une <a href="https://github.com/grandelagbanou28-gif/GrdenIA/issues" target="_blank">issue sur GitHub</a>.
+            </p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Grden IA. Fait avec ❤️ par <a href="https://github.com/grandelagbanou28-gif" target="_blank">Grandel Agbanou</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

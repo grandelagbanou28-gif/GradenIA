@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grden IA - Assistant IA Personnel</title>
+    <meta name="description" content="Grden IA - Interface de chat IA intelligente, rapide et entierement personnalisee. Ollama, Gemini, modeles locaux.">
+    <meta name="keywords" content="IA, chatbot, ollama, llm, intelligence artificielle, assistant IA, graden ia">
+    <meta name="author" content="Grandel Agbanou">
+    <meta property="og:title" content="Grden IA - Assistant IA Personnel">
+    <meta property="og:description" content="Interface de chat IA intelligente avec support Ollama et Gemini">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://grandelagbanou28-gif.github.io/GrdenIA/">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">🤖</span>
+                <span class="logo-text">Grden IA</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Accueil</a>
+                <a href="docs.html" class="nav-link">Documentation</a>
+                <a href="installation.html" class="nav-link">Installation</a>
+                <a href="api.html" class="nav-link">API</a>
+                <a href="screenshots.html" class="nav-link">Captures</a>
+                <a href="https://github.com/grandelagbanou28-gif/GrdenIA" class="nav-link nav-github" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+            </div>
+            <button class="nav-toggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-badge">Open Source & Gratuit</div>
+                <h1 class="hero-title">
+                    Votre assistant IA
+                    <span class="gradient-text">personnel</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Interface de chat IA intelligente, rapide et entierement personnalisee.
+                    Fonctionne en local avec Ollama ou en ligne avec Gemini.
+                </p>
+                <div class="hero-actions">
+                    <a href="installation.html" class="btn btn-primary">
+                        Commencer
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="docs.html" class="btn btn-secondary">
+                        Documentation
+                    </a>
+                </div>
+                <div class="hero-code">
+                    <div class="code-header">
+                        <span class="code-dot"></span>
+                        <span class="code-dot"></span>
+                        <span class="code-dot"></span>
+                        <span class="code-label">Terminal</span>
+                    </div>
+                    <pre><code><span class="code-comment"># Installation rapide</span>
+<span class="code-keyword">git clone</span> https://github.com/grandelagbanou28-gif/GrdenIA.git
+<span class="code-keyword">cd</span> GrdenIA
+<span class="code-keyword">pip install</span> -r requirements.txt
+<span class="code-keyword">python</span> launch.py</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="features-container">
+                <div class="features-header">
+                    <span class="section-badge">Fonctionnalites</span>
+                    <h2>Tout ce dont vous avez besoin</h2>
+                    <p>Une solution complete pour interagir avec les modeles IA</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3>Multi-modeles</h3>
+                        <p>Utilisez Qwen, Llama, Gemma, Granite et plus encore. Choisissez le modele adapte a vos besoins.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📁</div>
+                        <h3>Upload de dossiers</h3>
+                        <p>Analysez des projets entiers en un clic. Le code, les documents, tout est analysable.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔌</div>
+                        <h3>Gemini API</h3>
+                        <p>Connexion directe a Google Gemini. Profitez des derniers modeles sans configuration complexe.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🖥️</div>
+                        <h3>Application Desktop</h3>
+                        <p>Fenetre native Windows. Pas besoin de navigateur, une vraie application.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>100% Local</h3>
+                        <p>Vos donnees ne quittent jamais votre PC. Confidentialite totale garantie.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Rapide</h3>
+                        <p>Optimise pour fonctionner sans GPU. Meme sur les PC modestes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="models">
+            <div class="models-container">
+                <div class="models-header">
+                    <span class="section-badge">Modeles</span>
+                    <h2>Modeles IA recommandes</h2>
+                    <p>Des modeles pour chaque usage et chaque configuration</p>
+                </div>
+                <div class="models-table-wrapper">
+                    <table class="models-table">
+                        <thead>
+                            <tr>
+                                <th>Modele</th>
+                                <th>Taille</th>
+                                <th>Vitesse</th>
+                                <th>Qualite</th>
+                                <th>Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>qwen2.5:0.5b</code></td>
+                                <td>397 MB</td>
+                                <td><span class="speed fast">Rapide</span></td>
+                                <td>⭐⭐</td>
+                                <td>Debutant, PC modeste</td>
+                            </tr>
+                            <tr>
+                                <td><code>qwen2.5-coder:1.5b</code></td>
+                                <td>986 MB</td>
+                                <td><span class="speed fast">Rapide</span></td>
+                                <td>⭐⭐⭐</td>
+                                <td>Programmation</td>
+                            </tr>
+                            <tr>
+                                <td><code>gemma3:1b</code></td>
+                                <td>800 MB</td>
+                                <td><span class="speed fast">Rapide</span></td>
+                                <td>⭐⭐⭐</td>
+                                <td>Usage general</td>
+                            </tr>
+                            <tr>
+                                <td><code>qwen2.5:7b</code></td>
+                                <td>4.4 GB</td>
+                                <td><span class="speed medium">Moyen</span></td>
+                                <td>⭐⭐⭐⭐</td>
+                                <td>Qualite elevee</td>
+                            </tr>
+                            <tr>
+                                <td><code>llama3.1:8b</code></td>
+                                <td>4.7 GB</td>
+                                <td><span class="speed medium">Moyen</span></td>
+                                <td>⭐⭐⭐⭐</td>
+                                <td>Usage avance</td>
+                            </tr>
+                            <tr>
+                                <td><code>minicpm-v4.6</code></td>
+                                <td>1.6 GB</td>
+                                <td><span class="speed medium">Moyen</span></td>
+                                <td>⭐⭐⭐⭐</td>
+                                <td>Multimodal</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech">
+            <div class="tech-container">
+                <div class="tech-header">
+                    <span class="section-badge">Technologies</span>
+                    <h2>Stack technique</h2>
+                    <p>Construit avec les meilleures technologies modernes</p>
+                </div>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <div class="tech-logo">🐍</div>
+                        <span>Python 3.12</span>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-logo">⚡</div>
+                        <span>FastAPI</span>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-logo">🔥</div>
+                        <span>Svelte 4</span>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-logo">🎨</div>
+                        <span>TailwindCSS</span>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-logo">🦙</div>
+                        <span>Ollama</span>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-logo">🐳</div>
+                        <span>Docker</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="cta-container">
+                <h2>Pret a commencer ?</h2>
+                <p>Installez Grden IA en quelques minutes et commencez a discuter avec l'IA.</p>
+                <div class="cta-actions">
+                    <a href="installation.html" class="btn btn-primary btn-large">
+                        Installer maintenant
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="https://github.com/grandelagbanou28-gif/GrdenIA" class="btn btn-secondary btn-large" target="_blank">
+                        Voir sur GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">🤖</span>
+                    <span class="logo-text">Grden IA</span>
+                    <p>Assistant IA personnel intelligent</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Produit</h4>
+                        <a href="docs.html">Documentation</a>
+                        <a href="installation.html">Installation</a>
+                        <a href="api.html">API</a>
+                        <a href="screenshots.html">Captures</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Communaute</h4>
+                        <a href="https://github.com/grandelagbanou28-gif/GrdenIA" target="_blank">GitHub</a>
+                        <a href="https://github.com/grandelagbanou28-gif/GrdenIA/issues" target="_blank">Issues</a>
+                        <a href="https://github.com/grandelagbanou28-gif/GrdenIA/discussions" target="_blank">Discussions</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Legal</h4>
+                        <a href="https://github.com/grandelagbanou28-gif/GrdenIA/blob/main/LICENSE" target="_blank">Licence MIT</a>
+                        <a href="https://github.com/grandelagbanou28-gif/GrdenIA/blob/main/SECURITY.md" target="_blank">Securite</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Grden IA. Fait avec ❤️ par <a href="https://github.com/grandelagbanou28-gif" target="_blank">Grandel Agbanou</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - Grden IA</title>
+    <meta name="description" content="Documentation API de Grden IA - Endpoints, authentication et exemples.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">🤖</span>
+                <span class="logo-text">Grden IA</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="docs.html" class="nav-link">Documentation</a>
+                <a href="installation.html" class="nav-link">Installation</a>
+                <a href="api.html" class="nav-link active">API</a>
+                <a href="screenshots.html" class="nav-link">Captures</a>
+                <a href="https://github.com/grandelagbanou28-gif/GrdenIA" class="nav-link nav-github" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+            </div>
+            <button class="nav-toggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>API Reference</h1>
+            <p>Documentation complete de l'API Grden IA</p>
+        </section>
+
+        <div class="doc-content">
+            <h2>Vue d'ensemble</h2>
+            <p>
+                L'API Grden IA suit les conventions REST et utilise JSON pour les echanges de donnees.
+                Toutes les API sont accessibles via <code>http://localhost:8080</code>.
+            </p>
+
+            <h2>Authentication</h2>
+            <p>La plupart des API necessitent un token d'authentification :</p>
+            <pre><code>Authorization: Bearer &lt;token&gt;</code></pre>
+
+            <h3>Obtenir un token</h3>
+            <pre><code>POST /api/v1/auths/signin
+Content-Type: application/json
+
+{
+  "email": "votre@email.com",
+  "password": "votre-mot-de-passe"
+}</code></pre>
+
+            <h2>Endpoints Chat</h2>
+
+            <h3>Envoyer un message</h3>
+            <pre><code>POST /api/v1/chat/completions
+Content-Type: application/json
+Authorization: Bearer &lt;token&gt;
+
+{
+  "model": "qwen2.5:0.5b",
+  "messages": [
+    {"role": "user", "content": "Bonjour !"}
+  ],
+  "stream": true
+}</code></pre>
+
+            <h3>Reponse</h3>
+            <pre><code>{
+  "id": "chatcmpl-123",
+  "object": "chat.completion",
+  "created": 1677652288,
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Bonjour ! Comment puis-je vous aider ?"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 12,
+    "total_tokens": 21
+  }
+}</code></pre>
+
+            <h2>Endpoints Modeles</h2>
+
+            <h3>Lister les modeles</h3>
+            <pre><code>GET /api/v1/models
+Authorization: Bearer &lt;token&gt;</code></pre>
+
+            <h3>Reponse</h3>
+            <pre><code>{
+  "data": [
+    {
+      "id": "qwen2.5:0.5b",
+      "object": "model",
+      "created": 1677652288,
+      "owned_by": "ollama"
+    }
+  ]
+}</code></pre>
+
+            <h2>Endpoints Ollama</h2>
+
+            <h3>Lister les modeles Ollama</h3>
+            <pre><code>GET /ollama/api/tags</code></pre>
+
+            <h3>Telecharger un modele</h3>
+            <pre><code>POST /ollama/api/pull
+Content-Type: application/json
+
+{
+  "name": "qwen2.5:0.5b"
+}</code></pre>
+
+            <h3>Actualiser les modeles</h3>
+            <pre><code>POST /ollama/api/refresh</code></pre>
+
+            <h2>Endpoints Fichiers</h2>
+
+            <h3>Upload un fichier</h3>
+            <pre><code>POST /api/v1/files/upload
+Content-Type: multipart/form-data
+Authorization: Bearer &lt;token&gt;
+
+file: &lt;fichier&gt;</code></pre>
+
+            <h3>Scanner un dossier</h3>
+            <pre><code>POST /api/v1/graden/scan-folder
+Content-Type: application/json
+Authorization: Bearer &lt;token&gt;
+
+{
+  "folder_path": "C:\\Mon\\Projet"
+}</code></pre>
+
+            <h2>Codes d'erreur</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>400</code></td>
+                        <td>Requete invalide</td>
+                    </tr>
+                    <tr>
+                        <td><code>401</code></td>
+                        <td>Non autorise (token manquant ou invalide)</td>
+                    </tr>
+                    <tr>
+                        <td><code>403</code></td>
+                        <td>Acces interdit</td>
+                    </tr>
+                    <tr>
+                        <td><code>404</code></td>
+                        <td>Ressource non trouvee</td>
+                    </tr>
+                    <tr>
+                        <td><code>429</code></td>
+                        <td>Trop de requetes (rate limit)</td>
+                    </tr>
+                    <tr>
+                        <td><code>500</code></td>
+                        <td>Erreur serveur</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Exemples avec curl</h2>
+
+            <h3>Envoyer un message</h3>
+            <pre><code>curl -X POST http://localhost:8080/api/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{
+    "model": "qwen2.5:0.5b",
+    "messages": [{"role": "user", "content": "Bonjour"}]
+  }'</code></pre>
+
+            <h3>Lister les modeles</h3>
+            <pre><code>curl http://localhost:8080/api/v1/models \
+  -H "Authorization: Bearer YOUR_TOKEN"</code></pre>
+
+            <h2>Exemples avec Python</h2>
+            <pre><code>import requests
+
+# Configurer l'API
+API_URL = "http://localhost:8080"
+TOKEN = "votre-token"
+
+headers = {
+    "Authorization": f"Bearer {TOKEN}",
+    "Content-Type": "application/json"
+}
+
+# Envoyer un message
+response = requests.post(
+    f"{API_URL}/api/v1/chat/completions",
+    headers=headers,
+    json={
+        "model": "qwen2.5:0.5b",
+        "messages": [
+            {"role": "user", "content": "Bonjour !"}
+        ]
+    }
+)
+
+print(response.json())</code></pre>
+
+            <h2>Exemples avec JavaScript</h2>
+            <pre><code>// Envoyer un message
+const response = await fetch('http://localhost:8080/api/v1/chat/completions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  },
+  body: JSON.stringify({
+    model: 'qwen2.5:0.5b',
+    messages: [
+      { role: 'user', content: 'Bonjour !' }
+    ]
+  })
+});
+
+const data = await response.json();
+console.log(data.choices[0].message.content);</code></pre>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Grden IA. Fait avec ❤️ par <a href="https://github.com/grandelagbanou28-gif" target="_blank">Grandel Agbanou</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
