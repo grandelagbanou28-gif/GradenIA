@@ -13,6 +13,7 @@
 
 	export let overlay = false;
 	export let chatId: string | null = null;
+	export let local = false;
 
 	let terminalEl: HTMLDivElement;
 	let term: Terminal | null = null;
@@ -155,6 +156,60 @@
 		}
 	};
 
+	const connectLocal = () => {
+		if (ws) disconnect();
+		connecting = true;
+		try {
+			const base = WEBUI_API_BASE_URL.replace(/\/$/, '');
+			const wsBase = base.replace(/^https:/, 'wss:').replace(/^http:/, 'ws:');
+			ws = new WebSocket(`${wsBase}/ws/local-terminal`);
+			ws.binaryType = 'arraybuffer';
+
+			ws.onopen = () => {
+				connected = true;
+				connecting = false;
+				term?.focus();
+				if (term && ws) {
+					ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
+				}
+				if (pingInterval) clearInterval(pingInterval);
+				pingInterval = setInterval(() => {
+					if (ws && ws.readyState === WebSocket.OPEN) {
+						ws.send(JSON.stringify({ type: 'ping' }));
+					}
+				}, 25000);
+			};
+
+			ws.onmessage = (event) => {
+				if (term) {
+					if (event.data instanceof ArrayBuffer) {
+						term.write(new Uint8Array(event.data));
+					} else {
+						term.write(event.data);
+					}
+				}
+			};
+
+			ws.onclose = () => {
+				connected = false;
+				connecting = false;
+				if (term) {
+					term.write('\r\n\x1b[90m[Terminal closed]\x1b[0m\r\n');
+				}
+			};
+
+			ws.onerror = () => {
+				connected = false;
+				connecting = false;
+			};
+		} catch (err) {
+			connecting = false;
+			if (term) {
+				term.write(`\r\n\x1b[31m[Error: ${err}]\x1b[0m\r\n`);
+			}
+		}
+	};
+
 	const disconnect = () => {
 		if (pingInterval) {
 			clearInterval(pingInterval);
@@ -259,8 +314,7 @@
 	};
 
 	// Reconnect when the selected terminal changes
-	$: if ($selectedTerminalId !== undefined && term) {
-		// Clear the terminal screen and reconnect to the new server
+	$: if (!local && $selectedTerminalId !== undefined && term) {
 		disconnect();
 		term.clear();
 		if ($selectedTerminalId) {
@@ -271,6 +325,12 @@
 	onMount(() => {
 		initTerminal();
 	});
+
+	$: if (local && term) {
+		disconnect();
+		term.clear();
+		connectLocal();
+	}
 
 	onDestroy(() => {
 		disconnect();

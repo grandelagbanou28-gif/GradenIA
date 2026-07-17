@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy, tick } from 'svelte';
 	import { toast } from 'svelte-sonner';
-	import { user, settings, terminalServers, selectedTerminalId } from '$lib/stores';
-	import { WEBUI_API_BASE_URL } from '$lib/constants';
 	import { generateOpenAIChatCompletion } from '$lib/apis/openai';
 	import Code from '$lib/components/icons/Code.svelte';
 	import XMark from '$lib/components/icons/XMark.svelte';
@@ -218,7 +216,7 @@
 
 			const token = localStorage.getItem('token') || '';
 			const res = await generateOpenAIChatCompletion(token, {
-				model: $settings?.models?.[0] || 'qwen2.5-coder:1.5b',
+				model: 'qwen2.5-coder:1.5b',
 				messages,
 				stream: false
 			});
@@ -493,7 +491,7 @@
 					}}
 				></div>
 				<div class="h-full overflow-hidden bg-black">
-					<XTerminal />
+					<XTerminal local={true} />
 				</div>
 			</div>
 		{/if}

@@ -768,6 +768,90 @@ if ENABLE_ADMIN_ANALYTICS:
     app.include_router(analytics.router, prefix='/api/v1/analytics', tags=['analytics'])
 app.include_router(utils.router, prefix='/api/v1/utils', tags=['utils'])
 app.include_router(terminals.router, prefix='/api/v1/terminals', tags=['terminals'])
+
+
+# ---------------------------------------------------------------------------
+# Local terminal WebSocket — spawns a local shell (PowerShell on Windows,
+# bash on Linux/Mac) and bridges I/O over WebSocket for the IDE terminal.
+# No authentication required (localhost-only in practice).
+# ---------------------------------------------------------------------------
+
+
+@app.websocket('/ws/local-terminal')
+async def local_terminal_ws(ws: WebSocket):
+    await ws.accept()
+
+    import asyncio
+    import sys as _sys
+
+    if _sys.platform == 'win32':
+        shell_cmd = 'powershell.exe'
+        shell_args = ['-NoExit', '-Command', '-']
+    else:
+        shell_cmd = 'bash'
+        shell_args = ['--login']
+
+    process = await asyncio.create_subprocess_exec(
+        shell_cmd,
+        *shell_args,
+        stdin=asyncio.subprocess.PIPE,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.STDOUT,
+    )
+
+    async def pipe_stdout():
+        try:
+            while True:
+                data = await process.stdout.read(4096)
+                if not data:
+                    break
+                await ws.send_bytes(data)
+        except Exception:
+            pass
+
+    async def pipe_stdin():
+        try:
+            while True:
+                msg = await ws.receive()
+                if msg['type'] == 'websocket.disconnect':
+                    break
+                if 'bytes' in msg and msg['bytes']:
+                    process.stdin.write(msg['bytes'])
+                    await process.stdin.drain()
+                elif 'text' in msg and msg['text']:
+                    import json as _json
+                    try:
+                        ctrl = _json.loads(msg['text'])
+                        if ctrl.get('type') == 'resize':
+                            pass
+                    except _json.JSONDecodeError:
+                        process.stdin.write(msg['text'].encode('utf-8'))
+                        await process.stdin.drain()
+        except Exception:
+            pass
+
+    tasks = [
+        asyncio.create_task(pipe_stdout()),
+        asyncio.create_task(pipe_stdin()),
+    ]
+
+    try:
+        await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
+    finally:
+        try:
+            process.terminate()
+        except Exception:
+            pass
+        for t in tasks:
+            t.cancel()
+            try:
+                await t
+            except Exception:
+                pass
+        try:
+            await ws.close()
+        except Exception:
+            pass
 app.include_router(automations.router, prefix='/api/v1/automations', tags=['automations'])
 app.include_router(calendar.router, prefix='/api/v1/calendars', tags=['calendars'])
 
