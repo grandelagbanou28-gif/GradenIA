@@ -1,6 +1,6 @@
 # Grden IA - Notes de version
 
-## Version 1.0.0 (2024-12-19)
+## Version 1.0.0 (2026-07-17)
 
 ### Nouveautes
 

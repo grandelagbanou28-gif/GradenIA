@@ -5,7 +5,7 @@ Toutes les changements notables de Graden IA seront documentes ici.
 Le format est base sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/),
 et ce projet adherer au [Semantic Versioning](https://semver.org/lang/fr/).
 
-## [1.0.0] - 2024-12-19
+## [1.0.0] - 2026-07-17
 
 ### Ajoute
 
@@ -44,7 +44,7 @@ et ce projet adherer au [Semantic Versioning](https://semver.org/lang/fr/).
 - Gestion des variables d'environnement
 - Configuration securisee par defaut
 
-## [0.1.0] - 2024-12-01
+## [0.1.0] - 2026-07-01
 
 ### Ajoute
 
