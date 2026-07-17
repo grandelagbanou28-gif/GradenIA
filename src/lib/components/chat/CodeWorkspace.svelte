@@ -17,6 +17,8 @@
 	import ArrowRight from '$lib/components/icons/ArrowRight.svelte';
 	import Spinner from '$lib/components/common/Spinner.svelte';
 	import XTerminal from './XTerminal.svelte';
+	import hljs from 'highlight.js';
+	import 'highlight.js/styles/atom-one-dark.css';
 
 	export let show = false;
 
@@ -235,12 +237,41 @@
 		await sendChatMessage();
 	}
 
-	function getCodeBlocks(text: string): string[] {
-		const regex = /```(?:\w+)?\n([\s\S]*?)```/g;
-		const blocks: string[] = [];
+	interface MessagePart {
+		type: 'text' | 'code';
+		content: string;
+		language: string;
+	}
+
+	function parseMessageParts(content: string): MessagePart[] {
+		const parts: MessagePart[] = [];
+		const regex = /```(\w+)?\n([\s\S]*?)```/g;
+		let lastIndex = 0;
 		let match;
-		while ((match = regex.exec(text)) !== null) blocks.push(match[1]);
-		return blocks;
+		while ((match = regex.exec(content)) !== null) {
+			if (match.index > lastIndex) {
+				parts.push({ type: 'text', content: content.slice(lastIndex, match.index), language: '' });
+			}
+			parts.push({ type: 'code', content: match[2], language: (match[1] || '').toLowerCase() });
+			lastIndex = match.index + match[0].length;
+		}
+		if (lastIndex < content.length) {
+			parts.push({ type: 'text', content: content.slice(lastIndex), language: '' });
+		}
+		if (parts.length === 0) parts.push({ type: 'text', content, language: '' });
+		return parts;
+	}
+
+	function highlightCode(code: string, language: string): string {
+		if (!code) return '';
+		try {
+			if (language && hljs.getLanguage(language)) {
+				return hljs.highlight(code, { language }).value;
+			}
+			return hljs.highlightAuto(code).value;
+		} catch {
+			return code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+		}
 	}
 
 	async function applyFix(code: string) {
@@ -673,30 +704,32 @@ Instructions:
 							</div>
 						{/if}
 						{#each chatMessages as msg, i}
+							{@const parts = parseMessageParts(msg.content)}
 							<div class="text-xs {msg.role === 'user' ? 'text-right' : ''}">
 								<div class="inline-block max-w-full px-2.5 py-1.5 rounded-lg {msg.role === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200'}">
 									{#if msg.role === 'assistant'}
-										<div class="whitespace-pre-wrap text-left">{msg.content}</div>
-										{@const blocks = getCodeBlocks(msg.content)}
-										{#if blocks.length > 0}
-											<div class="mt-2 flex gap-1">
-												<button
-													class="px-2 py-0.5 text-[10px] font-medium bg-green-500 hover:bg-green-600 text-white rounded transition-colors"
-													on:click={() => applyFix(blocks[0])}
-												>
-													✅ Appliquer
-												</button>
-												<button
-													class="px-2 py-0.5 text-[10px] font-medium bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-700 dark:text-gray-200 rounded transition-colors"
-													on:click={() => { navigator.clipboard.writeText(blocks[0]); toast.success('Code copie'); }}
-												>
-													📋 Copier
-												</button>
-												{#if blocks.length > 1}
-													<span class="text-[9px] text-gray-400 self-center">{blocks.length} blocs</span>
-												{/if}
-											</div>
-										{/if}
+										{#each parts as part}
+											{#if part.type === 'text'}
+												<div class="whitespace-pre-wrap text-left">{part.content}</div>
+											{:else}
+												<div class="mt-2 rounded-lg overflow-hidden border border-gray-700">
+													<div class="flex items-center justify-between px-3 py-1 bg-slate-800 border-b border-gray-700">
+														<span class="text-[11px] text-slate-400 uppercase font-semibold">{part.language || 'code'}</span>
+														<div class="flex gap-1">
+															<button
+																class="px-2 py-0.5 text-[10px] font-medium bg-green-500 hover:bg-green-600 text-white rounded transition-colors"
+																on:click={() => applyFix(part.content)}
+															>Accepter</button>
+															<button
+																class="px-2 py-0.5 text-[10px] font-medium bg-slate-600 hover:bg-slate-500 text-slate-200 rounded transition-colors"
+																on:click={() => { navigator.clipboard.writeText(part.content); toast.success('Code copie'); }}
+															>Copier</button>
+														</div>
+													</div>
+													<pre class="m-0 p-3 bg-slate-900 overflow-x-auto text-xs leading-relaxed"><code>{@html highlightCode(part.content, part.language)}</code></pre>
+												</div>
+											{/if}
+										{/each}
 									{:else}
 										{msg.content}
 									{/if}
