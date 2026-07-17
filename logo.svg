@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f23;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a3e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4aa;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#00b4d8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7b2ff7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4aa;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#7b2ff7;stop-opacity:0.3" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#00d4aa" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="250" fill="url(#bgGrad)" stroke="url(#accentGrad)" stroke-width="3"/>
+
+  <!-- Outer ring -->
+  <circle cx="256" cy="256" r="230" fill="none" stroke="url(#accentGrad)" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Circuit pattern decorative lines -->
+  <g stroke="url(#accentGrad)" stroke-width="1" opacity="0.2" fill="none">
+    <line x1="80" y1="180" x2="120" y2="180"/>
+    <line x1="120" y1="180" x2="130" y2="170"/>
+    <circle cx="130" cy="170" r="3" fill="url(#accentGrad)" stroke="none"/>
+
+    <line x1="432" y1="180" x2="392" y2="180"/>
+    <line x1="392" y1="180" x2="382" y2="170"/>
+    <circle cx="382" cy="170" r="3" fill="url(#accentGrad)" stroke="none"/>
+
+    <line x1="80" y1="332" x2="120" y2="332"/>
+    <line x1="120" y1="332" x2="130" y2="342"/>
+    <circle cx="130" cy="342" r="3" fill="url(#accentGrad)" stroke="none"/>
+
+    <line x1="432" y1="332" x2="392" y2="332"/>
+    <line x1="392" y1="332" x2="382" y2="342"/>
+    <circle cx="382" cy="342" r="3" fill="url(#accentGrad)" stroke="none"/>
+  </g>
+
+  <!-- Neural network dots -->
+  <g fill="url(#accentGrad)" opacity="0.3">
+    <circle cx="100" cy="256" r="2"/>
+    <circle cx="412" cy="256" r="2"/>
+    <circle cx="256" cy="100" r="2"/>
+    <circle cx="256" cy="412" r="2"/>
+    <circle cx="140" cy="140" r="2"/>
+    <circle cx="372" cy="140" r="2"/>
+    <circle cx="140" cy="372" r="2"/>
+    <circle cx="372" cy="372" r="2"/>
+  </g>
+
+  <!-- Glow circle behind G -->
+  <circle cx="256" cy="230" r="90" fill="url(#glowGrad)" filter="url(#glow)"/>
+
+  <!-- Main letter G -->
+  <g filter="url(#shadow)">
+    <path d="M 310 178 
+             C 310 143, 285 118, 250 118 
+             C 215 118, 190 143, 190 178 
+             L 190 288 
+             C 190 323, 215 348, 250 348 
+             C 285 348, 310 323, 310 288 
+             L 310 248 
+             L 260 248 
+             L 260 288 
+             C 260 303, 255 308, 250 308 
+             C 245 308, 240 303, 240 288 
+             L 240 178 
+             C 240 163, 245 158, 250 158 
+             C 255 158, 260 163, 260 178 
+             Z" 
+          fill="url(#accentGrad)"/>
+  </g>
+
+  <!-- AI circuit traces from G -->
+  <g stroke="url(#accentGrad)" stroke-width="2" fill="none" opacity="0.6">
+    <line x1="310" y1="228" x2="340" y2="228"/>
+    <line x1="340" y1="228" x2="350" y2="218"/>
+    <line x1="350" y1="218" x2="370" y2="218"/>
+    <circle cx="374" cy="218" r="4" fill="url(#accentGrad)"/>
+
+    <line x1="310" y1="248" x2="335" y2="248"/>
+    <line x1="335" y1="248" x2="345" y2="258"/>
+    <circle cx="349" cy="258" r="3" fill="url(#accentGrad)"/>
+
+    <line x1="250" y1="118" x2="250" y2="98"/>
+    <line x1="250" y1="98" x2="240" y2="88"/>
+    <circle cx="240" cy="84" r="3" fill="url(#accentGrad)"/>
+  </g>
+
+  <!-- Text: GRDEN IA -->
+  <text x="256" y="410" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="36" font-weight="700" fill="url(#accentGrad)" letter-spacing="6">GRDEN IA</text>
+
+  <!-- Subtle tagline -->
+  <text x="256" y="445" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#8888aa" letter-spacing="4">INTELLIGENCE ARTIFICIELLE</text>
+</svg>
