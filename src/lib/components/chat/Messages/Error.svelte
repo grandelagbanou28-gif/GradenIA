@@ -20,10 +20,15 @@
 			{:else if content?.message}
 				{content.message}
 			{:else}
-				{JSON.stringify(content)}
+				<div class="text-gray-600 dark:text-gray-400">
+					<div class="font-medium mb-1">Erreur inattendue:</div>
+					{#each Object.entries(content) as [key, value]}
+						<div><span class="font-mono text-xs text-gray-500">{key}:</span> {typeof value === 'object' ? JSON.stringify(value) : value}</div>
+					{/each}
+				</div>
 			{/if}
 		{:else}
-			{JSON.stringify(content)}
+			{String(content)}
 		{/if}
 	</div>
 </div>

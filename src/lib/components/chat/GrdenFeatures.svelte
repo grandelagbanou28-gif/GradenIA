@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import { toast } from 'svelte-sonner';
 	import { chatId, chats, settings, showSidebar, user } from '$lib/stores';
+	import CodeWorkspace from './CodeWorkspace.svelte';
 
 	const i18n = getContext('i18n');
 
@@ -15,6 +16,7 @@
 	let showStats = false;
 	let showExportMenu = false;
 	let showPresentation = false;
+	let showIDE = false;
 	let isRecording = false;
 	let recognition: any = null;
 	let draftTimeout: any = null;
@@ -296,6 +298,11 @@
 	<!-- Buttons -->
 	<div class="flex gap-2">
 		<button
+			class="w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-600 text-white shadow-lg flex items-center justify-center text-lg hover:scale-110 transition-transform"
+			on:click={() => { showIDE = true; }}
+			title="IDE - Ouvrir un dossier"
+		>💻</button>
+		<button
 			class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border dark:border-gray-700 shadow-lg flex items-center justify-center text-lg hover:scale-110 transition-transform"
 			on:click={() => { showTemplates = !showTemplates; showStats = false; showExportMenu = false; }}
 			title="Templates rapides"
@@ -322,6 +329,8 @@
 		>🎤</button>
 	</div>
 </div>
+
+<CodeWorkspace bind:show={showIDE} />
 
 <style>
 	:global(.fixed) {
