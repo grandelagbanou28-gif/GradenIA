@@ -777,7 +777,7 @@ app.include_router(terminals.router, prefix='/api/v1/terminals', tags=['terminal
 # ---------------------------------------------------------------------------
 
 
-@app.websocket('/ws/local-terminal')
+@app.websocket('/api/v1/terminal/local')
 async def local_terminal_ws(ws: WebSocket):
     await ws.accept()
 
@@ -785,8 +785,16 @@ async def local_terminal_ws(ws: WebSocket):
     import sys as _sys
 
     if _sys.platform == 'win32':
-        shell_cmd = 'powershell.exe'
-        shell_args = ['-NoExit', '-Command', '-']
+        import subprocess as _sp
+        if _sp.run(['pwsh.exe', '--version'], capture_output=True).returncode == 0:
+            shell_cmd = 'pwsh.exe'
+            shell_args = ['-NoExit', '-NoProfile', '-Command', '-']
+        elif _sp.run(['powershell.exe', '--version'], capture_output=True).returncode == 0:
+            shell_cmd = 'powershell.exe'
+            shell_args = ['-NoExit', '-NoProfile', '-Command', '-']
+        else:
+            shell_cmd = 'cmd.exe'
+            shell_args = ['/Q', '/K']
     else:
         shell_cmd = 'bash'
         shell_args = ['--login']
@@ -798,6 +806,9 @@ async def local_terminal_ws(ws: WebSocket):
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.STDOUT,
     )
+
+    import platform as _platform
+    await ws.send_text(f'\x1b[32m[Terminal {shell_cmd} sur {_platform.node()}]\x1b[0m\r\n')
 
     async def pipe_stdout():
         try:

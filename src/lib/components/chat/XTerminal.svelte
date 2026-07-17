@@ -162,7 +162,7 @@
 		try {
 			const base = WEBUI_API_BASE_URL.replace(/\/$/, '');
 			const wsBase = base.replace(/^https:/, 'wss:').replace(/^http:/, 'ws:');
-			ws = new WebSocket(`${wsBase}/ws/local-terminal`);
+			ws = new WebSocket(`${wsBase}/api/v1/terminal/local`);
 			ws.binaryType = 'arraybuffer';
 
 			ws.onopen = () => {
