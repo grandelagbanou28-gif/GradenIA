@@ -2462,11 +2462,12 @@
 			true;
 		// Always include system prompt — backend extracts it and prepends to DB messages.
 		// Only temp chats need conversation messages (persisted chats load from DB).
+		const langInstruction = "Tu DOIS TOUJOURS repondre dans la meme langue que celle utilisee par l'utilisateur. Si l'utilisateur ecrit en francais, reponds en francais. Si l'utilisateur ecrit en anglais, reponds en anglais. Detecte automatiquement la langue et reponds dans cette langue uniquement.";
+		const userSystem = params?.system ?? $settings?.system ?? '';
+		const fullSystem = userSystem ? `${userSystem}\n\n${langInstruction}` : langInstruction;
 		let messages: any[] = [
-			params?.system || $settings.system
-				? { role: 'system', content: `${params?.system ?? $settings?.system ?? ''}` }
-				: undefined
-		].filter(Boolean);
+			{ role: 'system', content: fullSystem }
+		];
 
 		if ($temporaryChatEnabled) {
 			messages = [
