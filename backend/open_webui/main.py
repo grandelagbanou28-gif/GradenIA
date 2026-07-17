@@ -783,40 +783,122 @@ async def local_terminal_ws(ws: WebSocket):
 
     import asyncio
     import sys as _sys
+    import os as _os
+    import json as _json
+    import platform as _platform
 
+    cols = 80
+    rows = 24
+
+    def write_to_proc(raw):
+        """Send raw bytes/str to the underlying shell process."""
+        try:
+            if isinstance(proc, _AsyncPtyShim):
+                proc.write(raw)
+            elif proc.stdin is not None:
+                if isinstance(raw, str):
+                    raw = raw.encode('utf-8')
+                proc.stdin.write(raw)
+                _loop.call_soon_threadsafe(_asyncio_ensure, proc.stdin.drain())
+        except Exception:
+            pass
+
+    async def _asyncio_ensure(coro):
+        try:
+            await coro
+        except Exception:
+            pass
+
+    _loop = asyncio.get_event_loop()
+    proc = None
+
+    # Windows: use a real ConPTY via pywinpty so PowerShell behaves like a
+    # true terminal (prompt, line editing, colors). Fallback to piped subprocess.
     if _sys.platform == 'win32':
         import subprocess as _sp
         if _sp.run(['pwsh.exe', '--version'], capture_output=True).returncode == 0:
             shell_cmd = 'pwsh.exe'
-            shell_args = ['-NoExit', '-NoProfile', '-Command', '-']
         elif _sp.run(['powershell.exe', '--version'], capture_output=True).returncode == 0:
             shell_cmd = 'powershell.exe'
-            shell_args = ['-NoExit', '-NoProfile', '-Command', '-']
         else:
             shell_cmd = 'cmd.exe'
-            shell_args = ['/Q', '/K']
+
+        try:
+            from winpty import PTY  # type: ignore
+
+            class _AsyncPtyShim:
+                """Bridges winpty.PTY (blocking, thread-based) to asyncio."""
+
+                def __init__(self, cmd, cols, rows):
+                    self._pty = PTY(cols, rows)
+                    self._pty.spawn(cmd)
+                    self._closed = False
+
+                def set_size(self, c, r):
+                    try:
+                        self._pty.set_size(c, r)
+                    except Exception:
+                        pass
+
+                def write(self, data):
+                    if isinstance(data, str):
+                        data = data.encode('utf-8', 'replace')
+                    try:
+                        self._pty.write(data)
+                    except Exception:
+                        pass
+
+                def read(self, n=65536):
+                    try:
+                        return self._pty.read(n)
+                    except Exception:
+                        return b''
+
+                def close(self):
+                    if not self._closed:
+                        self._closed = True
+                        try:
+                            self._pty.close()
+                        except Exception:
+                            pass
+
+            proc = _AsyncPtyShim(shell_cmd, cols, rows)
+            use_pty = True
+        except Exception:
+            shell_args = ['-NoExit', '-NoProfile', '-Command', '-'] if shell_cmd != 'cmd.exe' else ['/Q', '/K']
+            proc = await asyncio.create_subprocess_exec(
+                shell_cmd, *shell_args,
+                stdin=asyncio.subprocess.PIPE,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.STDOUT,
+            )
+            use_pty = False
     else:
-        shell_cmd = 'bash'
-        shell_args = ['--login']
+        proc = await asyncio.create_subprocess_exec(
+            'bash', '--login',
+            stdin=asyncio.subprocess.PIPE,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.STDOUT,
+        )
+        use_pty = False
 
-    process = await asyncio.create_subprocess_exec(
-        shell_cmd,
-        *shell_args,
-        stdin=asyncio.subprocess.PIPE,
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.STDOUT,
-    )
-
-    import platform as _platform
     await ws.send_text(f'\x1b[32m[Terminal {shell_cmd} sur {_platform.node()}]\x1b[0m\r\n')
 
     async def pipe_stdout():
         try:
-            while True:
-                data = await process.stdout.read(4096)
-                if not data:
-                    break
-                await ws.send_bytes(data)
+            if use_pty:
+                while True:
+                    data = await _loop.run_in_executor(None, proc.read, 65536)
+                    if not data:
+                        await asyncio.sleep(0.02)
+                        continue
+                    await ws.send_bytes(data)
+            else:
+                while True:
+                    data = await proc.stdout.read(4096)
+                    if not data:
+                        break
+                    await ws.send_bytes(data)
         except Exception:
             pass
 
@@ -827,17 +909,18 @@ async def local_terminal_ws(ws: WebSocket):
                 if msg['type'] == 'websocket.disconnect':
                     break
                 if 'bytes' in msg and msg['bytes']:
-                    process.stdin.write(msg['bytes'])
-                    await process.stdin.drain()
+                    write_to_proc(msg['bytes'])
                 elif 'text' in msg and msg['text']:
-                    import json as _json
                     try:
                         ctrl = _json.loads(msg['text'])
-                        if ctrl.get('type') == 'resize':
+                        if ctrl.get('type') == 'resize' and use_pty:
+                            cols = int(ctrl.get('cols', cols))
+                            rows = int(ctrl.get('rows', rows))
+                            proc.set_size(cols, rows)
+                        elif ctrl.get('type') == 'resize':
                             pass
                     except _json.JSONDecodeError:
-                        process.stdin.write(msg['text'].encode('utf-8'))
-                        await process.stdin.drain()
+                        write_to_proc(msg['text'])
         except Exception:
             pass
 
@@ -850,9 +933,14 @@ async def local_terminal_ws(ws: WebSocket):
         await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
     finally:
         try:
-            process.terminate()
+            proc.close()
         except Exception:
             pass
+        if not use_pty:
+            try:
+                proc.terminate()
+            except Exception:
+                pass
         for t in tasks:
             t.cancel()
             try:

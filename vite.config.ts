@@ -25,6 +25,9 @@ export default defineConfig({
 			{ find: '@xterm/xterm', replacement: `${xtermSrc}/src/browser/public/Terminal.ts` },
 			{ find: '@xterm/addon-fit', replacement: `${xtermSrc}/addons/addon-fit/src/FitAddon.ts` },
 			{ find: '@xterm/addon-web-links', replacement: `${xtermSrc}/addons/addon-web-links/src/WebLinksAddon.ts` },
+			{ find: '@xterm/addon-webgl', replacement: `${xtermSrc}/addons/addon-webgl/src/WebglAddon.ts` },
+			{ find: '@xterm/addon-search', replacement: `${xtermSrc}/addons/addon-search/src/SearchAddon.ts` },
+			{ find: '@xterm/addon-serialize', replacement: `${xtermSrc}/addons/addon-serialize/src/SerializeAddon.ts` },
 			{ find: 'browser/', replacement: `${xtermSrc}/src/browser/` },
 			{ find: 'common/', replacement: `${xtermSrc}/src/common/` }
 		]
