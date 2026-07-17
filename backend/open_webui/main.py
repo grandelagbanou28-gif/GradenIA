@@ -827,7 +827,11 @@ async def local_terminal_ws(ws: WebSocket):
             from winpty import PTY  # type: ignore
 
             class _AsyncPtyShim:
-                """Bridges winpty.PTY (blocking, thread-based) to asyncio."""
+                """Bridges winpty.PTY (blocking, thread-based) to asyncio.
+
+                pywinpty 3.x API: read(blocking: bool) -> bytes,
+                write(str), set_size(cols, rows). No close() method.
+                """
 
                 def __init__(self, cmd, cols, rows):
                     self._pty = PTY(cols, rows)
@@ -841,8 +845,8 @@ async def local_terminal_ws(ws: WebSocket):
                         pass
 
                 def write(self, data):
-                    if isinstance(data, str):
-                        data = data.encode('utf-8', 'replace')
+                    if isinstance(data, bytes):
+                        data = data.decode('utf-8', 'replace')
                     try:
                         self._pty.write(data)
                     except Exception:
@@ -850,7 +854,10 @@ async def local_terminal_ws(ws: WebSocket):
 
                 def read(self, n=65536):
                     try:
-                        return self._pty.read(n)
+                        data = self._pty.read(False)
+                        if isinstance(data, str):
+                            data = data.encode('utf-8', 'replace')
+                        return data or b''
                     except Exception:
                         return b''
 
@@ -858,7 +865,8 @@ async def local_terminal_ws(ws: WebSocket):
                     if not self._closed:
                         self._closed = True
                         try:
-                            self._pty.close()
+                            if self._pty.isalive():
+                                self._pty.cancel_io()
                         except Exception:
                             pass
 
@@ -888,7 +896,7 @@ async def local_terminal_ws(ws: WebSocket):
         try:
             if use_pty:
                 while True:
-                    data = await _loop.run_in_executor(None, proc.read, 65536)
+                    data = await _loop.run_in_executor(None, proc.read)
                     if not data:
                         await asyncio.sleep(0.02)
                         continue
