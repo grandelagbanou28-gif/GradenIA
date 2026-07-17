@@ -99,9 +99,9 @@ body {
 }
 
 .logo-img {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
     object-fit: contain;
 }
 
@@ -702,9 +702,9 @@ body {
 }
 
 .footer-brand .logo-img {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
     object-fit: contain;
 }
 
