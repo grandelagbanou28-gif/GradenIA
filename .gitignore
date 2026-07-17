@@ -233,7 +233,6 @@ backend/open_webui/static/fonts/Twemoji.ttf
 static/assets/fonts/Inter-Variable.ttf
 static/assets/fonts/Archivo-Variable.ttf
 static/sql.js/sql-wasm.wasm
-CHANGELOG.md
 uv.lock
 
 # Large images
