@@ -31,16 +31,16 @@
 	};
 
 	const templates = [
-		{ name: 'Resumer', prompt: 'Resums le texte suivant en quelques lignes cle :', icon: '📝' },
-		{ name: 'Traduire en FR', prompt: 'Traduis le texte suivant en francais :', icon: '🇫🇷' },
-		{ name: 'Traduire en EN', prompt: 'Translate the following text to English:', icon: '🇬🇧' },
-		{ name: 'Expliquer', prompt: 'Explique le concept suivant de facon simple et claire :', icon: '💡' },
-		{ name: 'Corriger', prompt: 'Corrige les erreurs dans le texte suivant et ameliore-le :', icon: '✏️' },
-		{ name: 'Reformuler', prompt: 'Reformule le texte suivant de maniere plus professionnelle :', icon: '🔄' },
-		{ name: 'Code', prompt: 'Ecris du code pour :', icon: '💻' },
-		{ name: 'Email pro', prompt: 'Redige un email professionnel pour :', icon: '📧' },
-		{ name: 'Liste a puces', prompt: 'Transforme en liste a puces :', icon: '📋' },
-		{ name: 'Arguments', prompt: 'Donne les arguments pour et contre :', icon: '⚖️' }
+		{ name: 'Resumer', prompt: 'Resums le texte suivant en quelques lignes cle :', icon: 'summary' },
+		{ name: 'Traduire en FR', prompt: 'Traduis le texte suivant en francais :', icon: 'lang' },
+		{ name: 'Traduire en EN', prompt: 'Translate the following text to English:', icon: 'lang' },
+		{ name: 'Expliquer', prompt: 'Explique le concept suivant de facon simple et claire :', icon: 'info' },
+		{ name: 'Corriger', prompt: 'Corrige les erreurs dans le texte suivant et ameliore-le :', icon: 'edit' },
+		{ name: 'Reformuler', prompt: 'Reformule le texte suivant de maniere plus professionnelle :', icon: 'reform' },
+		{ name: 'Code', prompt: 'Ecris du code pour :', icon: 'code' },
+		{ name: 'Email pro', prompt: 'Redige un email professionnel pour :', icon: 'mail' },
+		{ name: 'Liste a puces', prompt: 'Transforme en liste a puces :', icon: 'list' },
+		{ name: 'Arguments', prompt: 'Donne les arguments pour et contre :', icon: 'balance' }
 	];
 
 	onMount(() => {
@@ -56,13 +56,11 @@
 		if (recognition) recognition.stop();
 	});
 
-	// === DRAFT AUTO-SAVE ===
 	function initDraftAutoSave() {
 		const saved = localStorage.getItem('graden_draft_' + ($chatId || 'new'));
 		if (saved) {
 			lastDraft = saved;
 		}
-
 		setInterval(() => {
 			const input = document.querySelector('textarea');
 			if (input && input.value.trim()) {
@@ -71,7 +69,6 @@
 		}, 3000);
 	}
 
-	// === NOTIFICATIONS ===
 	function initNotifications() {
 		if ('Notification' in window && Notification.permission === 'default') {
 			Notification.requestPermission();
@@ -80,14 +77,13 @@
 
 	export function notifyResponseComplete() {
 		if ('Notification' in window && Notification.permission === 'granted') {
-			new Notification('Grden IA', {
+			new Notification('Graden IA', {
 				body: 'Votre reponse est prete !',
 				icon: '/static/graden_blue.png'
 			});
 		}
 	}
 
-	// === STATS ===
 	function loadStats() {
 		const saved = localStorage.getItem('graden_stats');
 		if (saved) {
@@ -111,16 +107,15 @@
 		saveStats();
 	}
 
-	// === EXPORT ===
 	export function exportMarkdown() {
 		if (!messages || messages.length === 0) {
 			toast.error('Aucune conversation a exporter');
 			return;
 		}
-		let md = `# ${chatTitle || 'Conversation Grden IA'}\n\n`;
+		let md = `# ${chatTitle || 'Conversation Graden IA'}\n\n`;
 		md += `*Exporte le ${new Date().toLocaleDateString('fr-FR')} a ${new Date().toLocaleTimeString('fr-FR')}*\n\n---\n\n`;
 		for (const msg of messages) {
-			const role = msg.role === 'user' ? '**Vous**' : '**Grden IA**';
+			const role = msg.role === 'user' ? '**Vous**' : '**Graden IA**';
 			const content = msg.content || '';
 			md += `### ${role}\n\n${content}\n\n---\n\n`;
 		}
@@ -177,11 +172,11 @@
 		html += `<div class="meta">Exporte le ${new Date().toLocaleDateString('fr-FR')} | Grden IA</div></body></html>`;
 		printWindow.document.write(html);
 		printWindow.document.close();
+		printWindow.document.close();
 		printWindow.print();
 		toast.success('Ouvrez l\'impression pour sauvegarder en PDF');
 	}
 
-	// === TEMPLATES ===
 	function applyTemplate(template) {
 		const input = document.querySelector('textarea');
 		if (input) {
@@ -193,7 +188,6 @@
 		toast.success(`Template "${template.name}" applique`);
 	}
 
-	// === VOICE ===
 	function initVoice() {
 		if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
 			const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -231,7 +225,6 @@
 		}
 	}
 
-	// === PRESENTATION MODE ===
 	function initPresentationMode() {
 		document.addEventListener('keydown', (e) => {
 			if (e.key === 'F11') {
@@ -265,7 +258,27 @@
 					class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-sm flex items-center gap-2 transition-colors"
 					on:click={() => applyTemplate(template)}
 				>
-					<span>{template.icon}</span>
+					<span class="text-blue-500 flex-shrink-0">
+						{#if template.icon === 'summary'}
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+						{:else if template.icon === 'lang'}
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+						{:else if template.icon === 'info'}
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+						{:else if template.icon === 'edit'}
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+						{:else if template.icon === 'reform'}
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+						{:else if template.icon === 'code'}
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+						{:else if template.icon === 'mail'}
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+						{:else if template.icon === 'list'}
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+						{:else if template.icon === 'balance'}
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v17"/><path d="M5 8l7-5 7 5"/><circle cx="5" cy="15" r="3"/><circle cx="19" cy="15" r="3"/></svg>
+						{/if}
+					</span>
 					<span class="text-gray-700 dark:text-gray-200">{template.name}</span>
 				</button>
 			{/each}
@@ -289,44 +302,65 @@
 	{#if showExportMenu}
 		<div class="bg-white dark:bg-gray-900 border dark:border-gray-700 rounded-xl shadow-2xl p-3 w-52">
 			<div class="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 px-1">Exporter</div>
-			<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-sm text-gray-700 dark:text-gray-200" on:click={() => { exportMarkdown(); showExportMenu = false; }}>📄 Markdown</button>
-			<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-sm text-gray-700 dark:text-gray-200" on:click={() => { exportJSON(); showExportMenu = false; }}>{'{ }'} JSON</button>
-			<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-sm text-gray-700 dark:text-gray-200" on:click={() => { exportPDF(); showExportMenu = false; }}>📑 PDF</button>
+			<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-sm text-gray-700 dark:text-gray-200 flex items-center gap-2" on:click={() => { exportMarkdown(); showExportMenu = false; }}>
+				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+				Markdown
+			</button>
+			<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-sm text-gray-700 dark:text-gray-200 flex items-center gap-2" on:click={() => { exportJSON(); showExportMenu = false; }}>
+				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+				JSON
+			</button>
+			<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-sm text-gray-700 dark:text-gray-200 flex items-center gap-2" on:click={() => { exportPDF(); showExportMenu = false; }}>
+				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M10 13h4"/><path d="M10 17h4"/><path d="M10 9h4"/></svg>
+				PDF
+			</button>
 		</div>
 	{/if}
 
 	<!-- Buttons -->
 	<div class="flex gap-2">
 		<button
-			class="w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-600 text-white shadow-lg flex items-center justify-center text-lg hover:scale-110 transition-transform"
+			class="feature-btn bg-blue-500 hover:bg-blue-600 text-white shadow-lg"
 			on:click={() => { showIDE = true; }}
 			title="IDE - Ouvrir un dossier"
-		>💻</button>
+		>
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+		</button>
 		<button
-			class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border dark:border-gray-700 shadow-lg flex items-center justify-center text-lg hover:scale-110 transition-transform"
+			class="feature-btn bg-white dark:bg-gray-800 border dark:border-gray-700 text-gray-700 dark:text-gray-200 shadow-lg"
 			on:click={() => { showTemplates = !showTemplates; showStats = false; showExportMenu = false; }}
 			title="Templates rapides"
-		>📝</button>
+		>
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+		</button>
 		<button
-			class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border dark:border-gray-700 shadow-lg flex items-center justify-center text-lg hover:scale-110 transition-transform"
+			class="feature-btn bg-white dark:bg-gray-800 border dark:border-gray-700 text-gray-700 dark:text-gray-200 shadow-lg"
 			on:click={() => { showExportMenu = !showExportMenu; showTemplates = false; showStats = false; }}
 			title="Exporter"
-		>📥</button>
+		>
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+		</button>
 		<button
-			class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border dark:border-gray-700 shadow-lg flex items-center justify-center text-lg hover:scale-110 transition-transform"
+			class="feature-btn bg-white dark:bg-gray-800 border dark:border-gray-700 text-gray-700 dark:text-gray-200 shadow-lg"
 			on:click={() => { showStats = !showStats; showTemplates = false; showExportMenu = false; }}
 			title="Statistiques"
-		>📊</button>
+		>
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+		</button>
 		<button
-			class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border dark:border-gray-700 shadow-lg flex items-center justify-center text-lg hover:scale-110 transition-transform"
+			class="feature-btn bg-white dark:bg-gray-800 border dark:border-gray-700 text-gray-700 dark:text-gray-200 shadow-lg"
 			on:click={togglePresentation}
 			title="Mode presentation (F11)"
-		>🖥️</button>
+		>
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+		</button>
 		<button
-			class="w-10 h-10 rounded-full shadow-lg flex items-center justify-center text-lg hover:scale-110 transition-transform {isRecording ? 'bg-red-500 text-white animate-pulse' : 'bg-white dark:bg-gray-800 border dark:border-gray-700'}"
+			class="feature-btn shadow-lg {isRecording ? 'bg-red-500 text-white animate-pulse' : 'bg-white dark:bg-gray-800 border dark:border-gray-700 text-gray-700 dark:text-gray-200'}"
 			on:click={toggleVoice}
 			title="Mode vocal"
-		>🎤</button>
+		>
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+		</button>
 	</div>
 </div>
 
@@ -335,5 +369,21 @@
 <style>
 	:global(.fixed) {
 		pointer-events: auto;
+	}
+	.feature-btn {
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.2s ease;
+	}
+	.feature-btn:hover {
+		transform: scale(1.12);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+	}
+	.feature-btn:active {
+		transform: scale(0.95);
 	}
 </style>

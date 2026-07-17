@@ -327,6 +327,9 @@ async def lifespan(app: FastAPI):
             # Disable signup since we now have an admin
             await Config.upsert({'ui.enable_signup': False})
 
+    # Force signup enabled for Graden IA
+    await Config.upsert({'ui.enable_signup': True})
+
     if SAFE_MODE:
         await Functions.deactivate_all_functions()
 

@@ -375,7 +375,7 @@
 
 				<div class="mt-2 text-xs text-gray-500">
 					{$i18n.t(
-						'Participate in community leaderboards and evaluations! Syncing aggregated usage stats helps drive research and improvements to Open WebUI. Your privacy is paramount: no message content is ever shared.'
+						'Participez aux classements et evaluations communautaires ! La synchronisation des statistiques aide a ameliorer Graden IA. Votre vie privee est primordiale : aucun contenu de message n\'est jamais partage.'
 					)}
 				</div>
 
@@ -384,7 +384,7 @@
 						{$i18n.t('What is shared:')}
 					</div>
 					<ul class="list-disc list-inside space-y-0.5 ml-1 mb-2">
-						<li>{$i18n.t('Open WebUI version')}</li>
+						<li>{$i18n.t('Version de Graden IA')}</li>
 						<li>{$i18n.t('Model names and usage frequency')}</li>
 						<li>{$i18n.t('Message counts and response timestamps')}</li>
 						<li>{$i18n.t('Content lengths (character counts only)')}</li>

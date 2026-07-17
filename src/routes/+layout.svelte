@@ -939,7 +939,7 @@
 
 	const windowMessageEventHandler = async (event) => {
 		if (
-			!['https://openwebui.com', 'https://www.openwebui.com', 'http://localhost:9999'].includes(
+			!['http://localhost:9999', 'http://localhost:8080'].includes(
 				event.origin
 			)
 		) {

@@ -155,7 +155,7 @@
 						e.preventDefault();
 
 						window.open(
-							`https://openwebui.com/models?q=${encodeURIComponent(model?.id ?? '')}`,
+							`https://github.com/grandelagbanou28-gif/GrdenIA`,
 							'_blank'
 						);
 						show = false;

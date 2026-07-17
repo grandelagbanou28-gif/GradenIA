@@ -846,9 +846,9 @@
 					>
 						<div class=" self-center flex items-center justify-center size-9">
 							<img
-								src="{WEBUI_BASE_URL}/static/favicon.png"
-								class="sidebar-new-chat-icon size-6 rounded-full group-hover:hidden"
-								alt=""
+								src="{WEBUI_BASE_URL}/static/graden_blue.png"
+								class="sidebar-new-chat-icon size-6 rounded-lg group-hover:hidden"
+								alt="Graden IA"
 							/>
 
 							<Sidebar className="size-5 hidden group-hover:flex" />
@@ -1057,9 +1057,9 @@
 				>
 					<img
 						crossorigin="anonymous"
-						src="{WEBUI_BASE_URL}/static/favicon.png"
-						class="sidebar-new-chat-icon size-6 rounded-full"
-						alt=""
+						src="{WEBUI_BASE_URL}/static/graden_blue.png"
+						class="sidebar-new-chat-icon size-7 rounded-lg"
+						alt="Graden IA"
 					/>
 				</a>
 

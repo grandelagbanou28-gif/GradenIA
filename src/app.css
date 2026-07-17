@@ -839,3 +839,113 @@ body {
 #note-content-container .ProseMirror {
 	padding-bottom: 2rem; /* space for the bottom toolbar */
 }
+
+/* ============================================
+   GRADEN IA - Modern UI Overrides
+   ============================================ */
+
+/* Sidebar modern styling */
+#sidebar {
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+}
+
+/* Top navigation bar */
+.top-nav {
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	border-bottom: 1px solid rgba(229, 231, 235, 0.6);
+	transition: all 0.2s ease;
+}
+
+.dark .top-nav {
+	border-bottom-color: rgba(31, 41, 55, 0.6);
+}
+
+/* Modern button hover effect */
+.btn-modern {
+	transition: all 0.15s ease;
+	border-radius: 0.5rem;
+}
+
+.btn-modern:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.dark .btn-modern:hover {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Modern card style */
+.card-modern {
+	background: white;
+	border: 1px solid rgba(229, 231, 235, 0.8);
+	border-radius: 0.75rem;
+	transition: all 0.2s ease;
+}
+
+.card-modern:hover {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.dark .card-modern {
+	background: rgba(17, 24, 39, 0.8);
+	border-color: rgba(31, 41, 55, 0.8);
+}
+
+.dark .card-modern:hover {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Blue accent gradient */
+.gradient-primary {
+	background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+}
+
+/* Subtle background patterns */
+.pattern-dots {
+	background-image: radial-gradient(circle, rgba(156, 163, 175, 0.15) 1px, transparent 1px);
+	background-size: 24px 24px;
+}
+
+/* Smooth page transitions */
+.page-transition {
+	animation: fadeSlideIn 0.3s ease-out;
+}
+
+@keyframes fadeSlideIn {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Modern input focus ring */
+input:focus,
+textarea:focus,
+select:focus {
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+	border-color: #2563eb !important;
+}
+
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+/* Tooltip modern */
+.tooltip-modern {
+	background: rgba(17, 24, 39, 0.95);
+	backdrop-filter: blur(8px);
+	border-radius: 0.5rem;
+	padding: 0.375rem 0.625rem;
+	font-size: 0.75rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

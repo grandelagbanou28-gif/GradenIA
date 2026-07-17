@@ -1003,10 +1003,10 @@
 								{$i18n.t('Warning')}:
 							</span>
 							{$i18n.t(
-								'MCP support is experimental and its specification changes often, which can lead to incompatibilities. OpenAPI specification support is directly maintained by the Open WebUI team, making it the more reliable option for compatibility.'
+								'Le support MCP est experimental et sa specification change souvent, ce qui peut conduire a des incompatibilites. Le support de la specification OpenAPI est directement maintenu par l\'equipe Graden IA, ce qui en fait l\'option la plus fiable.'
 							)}
 
-							<a class="font-medium underline" href="https://docs.openwebui.com/" target="_blank"
+							<a class="font-medium underline" href="https://github.com/grandelagbanou28-gif/GrdenIA" target="_blank"
 								>{$i18n.t('Read more →')}</a
 							>
 						</div>

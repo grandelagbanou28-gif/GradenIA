@@ -29,12 +29,12 @@
 					}
 				}}
 			>
-				<img
-					src="{WEBUI_BASE_URL}/static/splash.png"
-					class="size-11 dark:invert p-0.5"
-					alt="logo"
-					draggable="false"
-				/>
+			<img
+				src="{WEBUI_BASE_URL}/static/graden_blue.png"
+				class="size-11 rounded-xl p-0.5"
+				alt="logo"
+				draggable="false"
+			/>
 			</button>
 		</Tooltip>
 	</div>
@@ -55,7 +55,7 @@
 			}}
 		>
 			<img
-				src="{WEBUI_BASE_URL}/static/favicon.png"
+				src="{WEBUI_BASE_URL}/static/graden_blue.png"
 				class="size-10 {selected === '' ? 'rounded-2xl' : 'rounded-full'}"
 				alt="logo"
 				draggable="false"
