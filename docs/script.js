@@ -1,5 +1,5 @@
 // ========================================
-// Grden IA - Premium JavaScript
+// Graden IA - Premium JavaScript
 // ========================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -140,6 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
         item.style.transitionDelay = `${index * 0.05}s`;
     });
 
-    console.log('%c🤖 Grden IA', 'font-size: 24px; font-weight: bold; color: #2563eb;');
+    console.log('%c🤖 Graden IA', 'font-size: 24px; font-weight: bold; color: #2563eb;');
     console.log('%cAssistant IA personnel intelligent', 'font-size: 12px; color: #64748b;');
 });

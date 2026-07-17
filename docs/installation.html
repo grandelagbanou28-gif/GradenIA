@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Installation - Grden IA</title>
-    <meta name="description" content="Guide d'installation de Grden IA - Comment installer et configurer votre assistant IA.">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+    <title>Installation - Graden IA</title>
+    <meta name="description" content="Guide d'installation de Graden IA - Comment installer et configurer votre assistant IA.">
+    <link rel="icon" type="image/png" href="graden_blue.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,8 +15,8 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
-                <span class="logo-icon">🤖</span>
-                <span class="logo-text">Grden IA</span>
+                <img src="graden_blue.png" alt="Graden IA" class="logo-img">
+                <span class="logo-text">Graden IA</span>
             </a>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Accueil</a>
@@ -37,7 +37,7 @@
     <main>
         <section class="page-header">
             <h1>Installation</h1>
-            <p>Installez Grden IA en quelques minutes</p>
+            <p>Installez Graden IA en quelques minutes</p>
         </section>
 
         <div class="doc-content">
@@ -142,7 +142,7 @@ ollama pull granite4.1-guardian:8b</code></pre>
             <h3>Variables d'environnement</h3>
             <p>Creez un fichier <code>.env</code> a la racine du projet :</p>
             <pre><code># .env
-WEBUI_NAME=Grden IA
+WEBUI_NAME=Graden IA
 OLLAMA_BASE_URL=http://localhost:11434
 WEBUI_SECRET_KEY=your-secret-key-here
 DEFAULT_MODELS=qwen2.5:0.5b,qwen2.5-coder:1.5b,gemma3:1b</code></pre>
@@ -156,7 +156,7 @@ DEFAULT_MODELS=qwen2.5:0.5b,qwen2.5-coder:1.5b,gemma3:1b</code></pre>
             </ol>
 
             <h2>Application Desktop</h2>
-            <p>Pour lancer Grden IA comme une application Windows native :</p>
+            <p>Pour lancer Graden IA comme une application Windows native :</p>
             <pre><code># Installer pywebview
 pip install pywebview
 
@@ -167,7 +167,7 @@ python graden_desktop.py</code></pre>
             <pre><code># Demarrer Ollama (si pas deja en cours)
 ollama serve
 
-# Lancer Grden IA
+# Lancer Graden IA
 python launch.py
 
 # Ouvrir dans le navigateur
@@ -203,7 +203,7 @@ ollama pull qwen2.5:0.5b</code></pre>
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-bottom">
-                <p>&copy; 2026 Grden IA. Fait avec ❤️ par <a href="https://github.com/grandelagbanou28-gif" target="_blank" rel="noopener">Grandel Agbanou</a>.</p>
+                <p>&copy; 2026 Graden IA. Fait avec ❤️ par <a href="https://github.com/grandelagbanou28-gif" target="_blank" rel="noopener">Grandel Agbanou</a>.</p>
             </div>
         </div>
     </footer>
