@@ -4,6 +4,24 @@
 	import { toast } from 'svelte-sonner';
 	import { chatId, chats, settings, showSidebar, user } from '$lib/stores';
 	import CodeWorkspace from './CodeWorkspace.svelte';
+	import Code from '$lib/components/icons/Code.svelte';
+	import Pencil from '$lib/components/icons/Pencil.svelte';
+	import Download from '$lib/components/icons/Download.svelte';
+	import ChartBar from '$lib/components/icons/ChartBar.svelte';
+	import Computer from '$lib/components/icons/Computer.svelte';
+	import Mic from '$lib/components/icons/Mic.svelte';
+	import Document from '$lib/components/icons/Document.svelte';
+	import GlobeAlt from '$lib/components/icons/GlobeAlt.svelte';
+	import Info from '$lib/components/icons/Info.svelte';
+	import EditPencil from '$lib/components/icons/EditPencil.svelte';
+	import Refresh from '$lib/components/icons/Refresh.svelte';
+	import Mail from '$lib/components/icons/ChatBubble.svelte';
+	import ListBullet from '$lib/components/icons/ListBullet.svelte';
+	import AdjustmentsHorizontal from '$lib/components/icons/AdjustmentsHorizontal.svelte';
+	import XMark from '$lib/components/icons/XMark.svelte';
+	import ArrowDownTray from '$lib/components/icons/ArrowDownTray.svelte';
+	import ChevronUp from '$lib/components/icons/ChevronUp.svelte';
+	import Bolt from '$lib/components/icons/Bolt.svelte';
 
 	const i18n = getContext('i18n');
 
@@ -31,16 +49,16 @@
 	};
 
 	const templates = [
-		{ name: 'Resumer', prompt: 'Resums le texte suivant en quelques lignes cle :', icon: 'summary' },
-		{ name: 'Traduire en FR', prompt: 'Traduis le texte suivant en francais :', icon: 'lang' },
-		{ name: 'Traduire en EN', prompt: 'Translate the following text to English:', icon: 'lang' },
+		{ name: 'Resumer', prompt: 'Resums le texte suivant en quelques lignes cle :', icon: 'doc' },
+		{ name: 'Traduire en FR', prompt: 'Traduis le texte suivant en francais :', icon: 'globe' },
+		{ name: 'Traduire en EN', prompt: 'Translate the following text to English:', icon: 'globe' },
 		{ name: 'Expliquer', prompt: 'Explique le concept suivant de facon simple et claire :', icon: 'info' },
 		{ name: 'Corriger', prompt: 'Corrige les erreurs dans le texte suivant et ameliore-le :', icon: 'edit' },
-		{ name: 'Reformuler', prompt: 'Reformule le texte suivant de maniere plus professionnelle :', icon: 'reform' },
+		{ name: 'Reformuler', prompt: 'Reformule le texte suivant de maniere plus professionnelle :', icon: 'refresh' },
 		{ name: 'Code', prompt: 'Ecris du code pour :', icon: 'code' },
 		{ name: 'Email pro', prompt: 'Redige un email professionnel pour :', icon: 'mail' },
 		{ name: 'Liste a puces', prompt: 'Transforme en liste a puces :', icon: 'list' },
-		{ name: 'Arguments', prompt: 'Donne les arguments pour et contre :', icon: 'balance' }
+		{ name: 'Arguments', prompt: 'Donne les arguments pour et contre :', icon: 'args' }
 	];
 
 	onMount(() => {
@@ -163,7 +181,7 @@
 			.content { white-space: pre-wrap; line-height: 1.6; }
 			.meta { color: #94a3b8; font-size: 0.8rem; margin-top: 2rem; text-align: center; }
 		</style></head><body>
-		<h1>${chatTitle || 'Conversation Grden IA'}</h1>`;
+		<h1>${chatTitle || 'Conversation Graden IA'}</h1>`;
 		for (const msg of messages) {
 			const cls = msg.role === 'user' ? 'user' : 'assistant';
 			const role = msg.role === 'user' ? 'Vous' : 'Grden IA';
@@ -259,24 +277,24 @@
 					on:click={() => applyTemplate(template)}
 				>
 					<span class="text-blue-500 flex-shrink-0">
-						{#if template.icon === 'summary'}
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
-						{:else if template.icon === 'lang'}
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+						{#if template.icon === 'doc'}
+							<Document className="w-4 h-4" />
+						{:else if template.icon === 'globe'}
+							<GlobeAlt className="w-4 h-4" />
 						{:else if template.icon === 'info'}
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+							<Info className="w-4 h-4" />
 						{:else if template.icon === 'edit'}
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
-						{:else if template.icon === 'reform'}
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+							<EditPencil className="w-4 h-4" />
+						{:else if template.icon === 'refresh'}
+							<Refresh className="w-4 h-4" />
 						{:else if template.icon === 'code'}
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+							<Code className="w-4 h-4" />
 						{:else if template.icon === 'mail'}
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+							<Mail className="w-4 h-4" />
 						{:else if template.icon === 'list'}
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
-						{:else if template.icon === 'balance'}
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v17"/><path d="M5 8l7-5 7 5"/><circle cx="5" cy="15" r="3"/><circle cx="19" cy="15" r="3"/></svg>
+							<ListBullet className="w-4 h-4" />
+						{:else if template.icon === 'args'}
+							<AdjustmentsHorizontal className="w-4 h-4" />
 						{/if}
 					</span>
 					<span class="text-gray-700 dark:text-gray-200">{template.name}</span>
@@ -303,15 +321,15 @@
 		<div class="bg-white dark:bg-gray-900 border dark:border-gray-700 rounded-xl shadow-2xl p-3 w-52">
 			<div class="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 px-1">Exporter</div>
 			<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-sm text-gray-700 dark:text-gray-200 flex items-center gap-2" on:click={() => { exportMarkdown(); showExportMenu = false; }}>
-				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+				<Document className="w-4 h-4" />
 				Markdown
 			</button>
 			<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-sm text-gray-700 dark:text-gray-200 flex items-center gap-2" on:click={() => { exportJSON(); showExportMenu = false; }}>
-				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+				<Code className="w-4 h-4" />
 				JSON
 			</button>
 			<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-sm text-gray-700 dark:text-gray-200 flex items-center gap-2" on:click={() => { exportPDF(); showExportMenu = false; }}>
-				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M10 13h4"/><path d="M10 17h4"/><path d="M10 9h4"/></svg>
+				<ArrowDownTray className="w-4 h-4" />
 				PDF
 			</button>
 		</div>
@@ -324,42 +342,42 @@
 			on:click={() => { showIDE = true; }}
 			title="IDE - Ouvrir un dossier"
 		>
-			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+			<Code className="w-5 h-5" />
 		</button>
 		<button
 			class="feature-btn bg-white dark:bg-gray-800 border dark:border-gray-700 text-gray-700 dark:text-gray-200 shadow-lg"
 			on:click={() => { showTemplates = !showTemplates; showStats = false; showExportMenu = false; }}
 			title="Templates rapides"
 		>
-			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+			<Pencil className="w-5 h-5" />
 		</button>
 		<button
 			class="feature-btn bg-white dark:bg-gray-800 border dark:border-gray-700 text-gray-700 dark:text-gray-200 shadow-lg"
 			on:click={() => { showExportMenu = !showExportMenu; showTemplates = false; showStats = false; }}
 			title="Exporter"
 		>
-			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+			<Download className="w-5 h-5" />
 		</button>
 		<button
 			class="feature-btn bg-white dark:bg-gray-800 border dark:border-gray-700 text-gray-700 dark:text-gray-200 shadow-lg"
 			on:click={() => { showStats = !showStats; showTemplates = false; showExportMenu = false; }}
 			title="Statistiques"
 		>
-			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+			<ChartBar className="w-5 h-5" />
 		</button>
 		<button
 			class="feature-btn bg-white dark:bg-gray-800 border dark:border-gray-700 text-gray-700 dark:text-gray-200 shadow-lg"
 			on:click={togglePresentation}
 			title="Mode presentation (F11)"
 		>
-			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+			<Computer className="w-5 h-5" />
 		</button>
 		<button
 			class="feature-btn shadow-lg {isRecording ? 'bg-red-500 text-white animate-pulse' : 'bg-white dark:bg-gray-800 border dark:border-gray-700 text-gray-700 dark:text-gray-200'}"
 			on:click={toggleVoice}
 			title="Mode vocal"
 		>
-			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+			<Mic className="w-5 h-5" />
 		</button>
 	</div>
 </div>

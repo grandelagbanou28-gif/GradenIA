@@ -1,6 +1,17 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { toast } from 'svelte-sonner';
+	import Code from '$lib/components/icons/Code.svelte';
+	import XMark from '$lib/components/icons/XMark.svelte';
+	import FolderOpen from '$lib/components/icons/FolderOpen.svelte';
+	import Folder from '$lib/components/icons/Folder.svelte';
+	import Terminal from '$lib/components/icons/Terminal.svelte';
+	import CommandLine from '$lib/components/icons/CommandLine.svelte';
+	import Computer from '$lib/components/icons/Computer.svelte';
+	import Bolt from '$lib/components/icons/Bolt.svelte';
+	import Clipboard from '$lib/components/icons/Clipboard.svelte';
+	import Link from '$lib/components/icons/Link.svelte';
+	import FloppyDisk from '$lib/components/icons/FloppyDisk.svelte';
 
 	export let show = false;
 
@@ -15,25 +26,26 @@
 	const isWindows = navigator.platform.includes('Win');
 	const isMac = navigator.platform.includes('Mac');
 
-	function getFileIcon(name: string): string {
+	function getFileIcon(name: string): { label: string; color: string } {
 		const ext = name.split('.').pop()?.toLowerCase();
-		const icons: Record<string, string> = {
-			js: 'JS', jsx: 'JX', ts: 'TS', tsx: 'TX', py: 'PY', html: 'HT',
-			css: 'CS', json: 'JS', md: 'MD', txt: 'TX', png: 'IM', jpg: 'IM',
-			svg: 'SV', gif: 'IM', sql: 'DB', sh: 'SH', bat: 'BT', yml: 'YM',
-			yaml: 'YM', xml: 'XL', csv: 'CS', toml: 'TM', ini: 'CF', env: 'CF'
+		const map: Record<string, { label: string; color: string }> = {
+			js: { label: 'JS', color: '#f7df1e' },
+			jsx: { label: 'JX', color: '#61dafb' },
+			ts: { label: 'TS', color: '#3178c6' },
+			tsx: { label: 'TX', color: '#3178c6' },
+			py: { label: 'PY', color: '#3776ab' },
+			html: { label: 'HT', color: '#e34f26' },
+			css: { label: 'CS', color: '#1572b6' },
+			json: { label: 'JS', color: '#000000' },
+			md: { label: 'MD', color: '#083fa1' },
+			sql: { label: 'DB', color: '#e48e00' },
+			sh: { label: 'SH', color: '#89e051' },
+			yml: { label: 'YM', color: '#cb171e' },
+			yaml: { label: 'YM', color: '#cb171e' },
+			xml: { label: 'XL', color: '#0060ac' },
+			svelte: { label: 'SV', color: '#ff3e00' }
 		};
-		return icons[ext || ''] || 'FI';
-	}
-
-	function getFileColor(name: string): string {
-		const ext = name.split('.').pop()?.toLowerCase();
-		const colors: Record<string, string> = {
-			js: '#f7df1e', jsx: '#61dafb', ts: '#3178c6', tsx: '#3178c6',
-			py: '#3776ab', html: '#e34f26', css: '#1572b6', json: '#000000',
-			md: '#083fa1', sql: '#e48e00', sh: '#89e051', yml: '#cb171e'
-		};
-		return colors[ext || ''] || '#6b7280';
+		return map[ext || ''] || { label: ext?.toUpperCase().slice(0, 2) || 'FI', color: '#6b7280' };
 	}
 
 	async function selectFolder() {
@@ -138,14 +150,14 @@
 			<div class="flex items-center justify-between mb-3">
 				<h2 class="font-bold text-gray-800 dark:text-white text-sm">Projet</h2>
 				<button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" on:click={() => show = false}>
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+					<XMark className="w-5 h-5" />
 				</button>
 			</div>
 			<button
 				class="w-full flex items-center justify-center gap-2 px-3 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors"
 				on:click={selectFolder}
 			>
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+				<FolderOpen className="w-4 h-4" />
 				{folderPath ? 'Changer de dossier' : 'Ouvrir un dossier'}
 			</button>
 		</div>
@@ -156,35 +168,35 @@
 			<div class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Ouvrir dans</div>
 			<div class="grid grid-cols-4 gap-1.5">
 				<button class="flex flex-col items-center gap-0.5 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" on:click={() => openInEditor('vscode')} title="VS Code">
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007acc" stroke-width="2"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+					<Code className="w-5 h-5" />
 					<span class="text-[9px] text-gray-500">VS Code</span>
 				</button>
 				<button class="flex flex-col items-center gap-0.5 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" on:click={() => openInEditor('cursor')} title="Cursor">
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+					<Bolt className="w-5 h-5" />
 					<span class="text-[9px] text-gray-500">Cursor</span>
 				</button>
 				<button class="flex flex-col items-center gap-0.5 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" on:click={() => openInEditor('zed')} title="Zed">
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+					<Computer className="w-5 h-5" />
 					<span class="text-[9px] text-gray-500">Zed</span>
 				</button>
 				<button class="flex flex-col items-center gap-0.5 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" on:click={() => openInEditor('finder')} title="Explorateur">
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+					<FolderOpen className="w-5 h-5" />
 					<span class="text-[9px] text-gray-500">{isWindows ? 'Explorer' : isMac ? 'Finder' : 'Files'}</span>
 				</button>
 				<button class="flex flex-col items-center gap-0.5 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" on:click={() => openInEditor('powershell')} title="Terminal">
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+					<CommandLine className="w-5 h-5" />
 					<span class="text-[9px] text-gray-500">{isWindows ? 'PS' : 'Term'}</span>
 				</button>
 				<button class="flex flex-col items-center gap-0.5 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" on:click={() => openInEditor('windowsterminal')} title="Windows Terminal">
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+					<Terminal className="w-5 h-5" />
 					<span class="text-[9px] text-gray-500">WT</span>
 				</button>
 				<button class="flex flex-col items-center gap-0.5 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" on:click={copyPath} title="Copier chemin">
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
+					<Clipboard className="w-5 h-5" />
 					<span class="text-[9px] text-gray-500">Chemin</span>
 				</button>
 				<button class="flex flex-col items-center gap-0.5 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" on:click={copyPath} title="Copier chemin format terminal">
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+					<Link className="w-5 h-5" />
 					<span class="text-[9px] text-gray-500">Copy</span>
 				</button>
 			</div>
@@ -199,7 +211,9 @@
 						<div class="animate-spin w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full mx-auto mb-2"></div>
 						Chargement...
 					{:else}
-						<svg class="mx-auto mb-2 text-gray-300" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+						<div class="flex justify-center mb-2 text-gray-300">
+							<FolderOpen className="w-8 h-8" />
+						</div>
 						Cliquez sur "Ouvrir un dossier" pour commencer
 					{/if}
 				</div>
@@ -212,9 +226,9 @@
 						style="padding-left: {file.isDir ? '0.5rem' : '1.25rem'}"
 					>
 						{#if file.isDir}
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+							<Folder className="w-4 h-4 flex-shrink-0" />
 						{:else}
-							<span class="text-[9px] font-bold px-1 rounded" style="background-color: {getFileColor(file.name)}; color: white; min-width: 20px; text-align: center;">{getFileIcon(file.name)}</span>
+							<span class="text-[9px] font-bold px-1 rounded flex-shrink-0" style="background-color: {getFileIcon(file.name).color}; color: white; min-width: 20px; text-align: center;">{getFileIcon(file.name).label}</span>
 						{/if}
 						<span class="truncate">{file.name}</span>
 					</button>
@@ -227,9 +241,9 @@
 								style="padding-left: 2rem"
 							>
 								{#if child.isDir}
-									<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+									<Folder className="w-4 h-4 flex-shrink-0" />
 								{:else}
-									<span class="text-[9px] font-bold px-1 rounded" style="background-color: {getFileColor(child.name)}; color: white; min-width: 20px; text-align: center;">{getFileIcon(child.name)}</span>
+									<span class="text-[9px] font-bold px-1 rounded flex-shrink-0" style="background-color: {getFileIcon(child.name).color}; color: white; min-width: 20px; text-align: center;">{getFileIcon(child.name).label}</span>
 								{/if}
 								<span class="truncate">{child.name}</span>
 							</button>
@@ -242,7 +256,7 @@
 		<!-- Footer -->
 		{#if folderPath}
 		<div class="p-3 border-t dark:border-gray-800 text-xs text-gray-400 truncate flex items-center gap-2">
-			<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+			<Folder className="w-3 h-3 flex-shrink-0" />
 			{folderPath}
 		</div>
 		{/if}
@@ -254,7 +268,7 @@
 			<!-- Tab bar -->
 			<div class="flex items-center justify-between px-3 py-1.5 bg-white dark:bg-gray-900 border-b dark:border-gray-800">
 				<div class="flex items-center gap-2">
-					<span class="text-[9px] font-bold px-1 rounded" style="background-color: {getFileColor(selectedFile.name)}; color: white;">{getFileIcon(selectedFile.name)}</span>
+					<span class="text-[9px] font-bold px-1 rounded" style="background-color: {getFileIcon(selectedFile.name).color}; color: white;">{getFileIcon(selectedFile.name).label}</span>
 					<span class="text-sm font-medium text-gray-700 dark:text-gray-200">{selectedFile.name}</span>
 					<span class="text-xs text-gray-400">{selectedFile.path}</span>
 				</div>
@@ -263,14 +277,14 @@
 						class="px-3 py-1 bg-green-500 hover:bg-green-600 text-white text-xs font-medium rounded-md transition-colors flex items-center gap-1"
 						on:click={saveFile}
 					>
-						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+						<FloppyDisk className="w-3.5 h-3.5" />
 						Sauvegarder
 					</button>
 					<button
 						class="px-3 py-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-xs font-medium rounded-md transition-colors flex items-center gap-1"
 						on:click={copyPath}
 					>
-						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
+						<Clipboard className="w-3.5 h-3.5" />
 						Chemin
 					</button>
 				</div>
@@ -288,18 +302,22 @@
 			<div class="flex-1 flex items-center justify-center">
 				<div class="text-center">
 					{#if folderPath}
-						<svg class="mx-auto mb-4 text-blue-400" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+						<div class="flex justify-center mb-4 text-blue-400">
+							<FolderOpen className="w-12 h-12" />
+						</div>
 						<h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">Dossier ouvert: {folderPath}</h3>
 						<p class="text-sm text-gray-400">Selectionnez un fichier pour l'editer</p>
 					{:else}
-						<svg class="mx-auto mb-4 text-blue-500" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+						<div class="flex justify-center mb-4 text-blue-500">
+							<Code className="w-14 h-14" />
+						</div>
 						<h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">Bienvenue dans Graden IDE</h3>
 						<p class="text-sm text-gray-400 mb-4">Ouvrez un dossier pour commencer a coder</p>
 						<button
 							class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors flex items-center gap-2 mx-auto"
 							on:click={selectFolder}
 						>
-							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+							<FolderOpen className="w-4 h-4" />
 							Ouvrir un dossier
 						</button>
 					{/if}
