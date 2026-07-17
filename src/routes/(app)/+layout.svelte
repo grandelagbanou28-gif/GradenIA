@@ -43,8 +43,10 @@
 	} from '$lib/stores';
 
 	import Sidebar from '$lib/components/layout/Sidebar.svelte';
+	import TopNav from '$lib/components/layout/TopNav.svelte';
 	import SettingsModal from '$lib/components/chat/SettingsModal.svelte';
 	import ChangelogModal from '$lib/components/ChangelogModal.svelte';
+	import GrdenFeatures from '$lib/components/chat/GrdenFeatures.svelte';
 	import AccountPending from '$lib/components/layout/Overlay/AccountPending.svelte';
 	import UpdateInfoToast from '$lib/components/layout/UpdateInfoToast.svelte';
 	import Spinner from '$lib/components/common/Spinner.svelte';
@@ -381,6 +383,7 @@
 
 <SettingsModal bind:show={$showSettings} />
 <ChangelogModal bind:show={$showChangelog} />
+<GrdenFeatures />
 
 {#if version && compareVersion(version.latest, version.current) && ($settings?.showUpdateToast ?? true)}
 	<div class=" absolute bottom-8 right-8 z-50" in:fade={{ duration: 100 }}>
@@ -459,17 +462,20 @@
 
 				<Sidebar />
 
-				{#if loaded}
-					<slot />
-				{:else}
-					<div
-						class="w-full flex-1 h-full flex items-center justify-center {$showSidebar
-							? '  md:max-w-[calc(100%-var(--sidebar-width))]'
-							: ' '}"
-					>
-						<Spinner className="size-5" />
-					</div>
-				{/if}
+				<div class="flex-1 flex flex-col min-h-0 overflow-hidden">
+					<TopNav />
+					{#if loaded}
+						<div class="flex-1 overflow-auto">
+							<slot />
+						</div>
+					{:else}
+						<div
+							class="w-full flex-1 h-full flex items-center justify-center"
+						>
+							<Spinner className="size-5" />
+						</div>
+					{/if}
+				</div>
 			{/if}
 		</div>
 	</div>
