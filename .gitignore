@@ -372,3 +372,12 @@ cypress/screenshots
 .vscode/settings.json
 .cptr
 .github/
+
+# xterm.js cloned source (vendored, built locally via vite alias)
+vendor/xterm.js/node_modules
+vendor/xterm.js/out
+vendor/xterm.js/out-test
+vendor/xterm.js/lib
+vendor/xterm.js/addons/*/lib
+vendor/xterm.js/addons/*/out
+
