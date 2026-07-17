@@ -100,7 +100,7 @@
 
 									{#if $config?.features?.enable_version_update_check}
 										<a
-											href="https://github.com/open-webui/open-webui/releases/tag/v{version.latest}"
+											href="https://github.com/grandelagbanou28-gif/GradenIA/releases"
 											target="_blank"
 										>
 											{updateAvailable === null
@@ -144,7 +144,7 @@
 										{$i18n.t('Help')}
 									</div>
 									<div class=" text-xs text-gray-500">
-										{$i18n.t('Grden IA - Assistant Intelligence Artificielle.')}
+										{$i18n.t('Graden IA - Assistant Intelligence Artificielle.')}
 									</div>
 								</div>
 
@@ -172,7 +172,7 @@
 
 								{#if $config?.license_metadata}
 									<a
-										href="https://docs.openwebui.com/enterprise"
+										href="https://github.com/grandelagbanou28-gif/GradenIA"
 										target="_blank"
 										class="text-gray-500 mt-0.5"
 									>
@@ -197,7 +197,7 @@
 								{:else}
 									<a
 										class=" text-xs hover:underline"
-										href="https://docs.openwebui.com/enterprise"
+										href="https://github.com/grandelagbanou28-gif/GradenIA"
 										target="_blank"
 									>
 										<span class="text-gray-500">

@@ -223,7 +223,7 @@
 			// Get version for filename
 			const versionRes = await getVersion(localStorage.token).catch(() => null);
 			const version = versionRes?.version ?? '0.0.0';
-			const filename = `open-webui-stats-${version}-${Date.now()}.json`;
+			const filename = `graden-ia-stats-${version}-${Date.now()}.json`;
 
 			// Start streaming download
 			const searchParams = eventData?.searchParams ?? {};
@@ -370,7 +370,7 @@
 
 			<div class="px-5 pt-2 pb-5">
 				<div class="text-sm text-gray-500 dark:text-gray-400">
-					{$i18n.t('Do you want to sync your usage stats with Open WebUI Community?')}
+					{$i18n.t('Do you want to sync your usage stats with Graden IA Community?')}
 				</div>
 
 				<div class="mt-2 text-xs text-gray-500">

@@ -62,7 +62,7 @@
 
 						{#if $config?.features?.enable_version_update_check}
 							<a
-								href="https://github.com/open-webui/open-webui/releases/tag/v{version.latest}"
+								href="https://github.com/grandelagbanou28-gif/GradenIA/releases"
 								target="_blank"
 							>
 								{updateAvailable === null
