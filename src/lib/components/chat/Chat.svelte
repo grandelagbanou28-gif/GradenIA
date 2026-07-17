@@ -3238,10 +3238,10 @@
 						}}
 					/>
 
-					<div id="chat-pane" class="flex flex-col flex-auto z-10 w-full @container overflow-auto">
+					<div id="chat-pane" class="flex flex-col flex-auto z-10 w-full @container h-full">
 						{#if ($settings?.landingPageMode === 'chat' && !$selectedFolder) || createMessagesList(history, history.currentId).length > 0}
 							<div
-								class=" pb-2.5 flex flex-col justify-between w-full flex-auto overflow-auto h-0 max-w-full z-10 scrollbar-hidden"
+								class=" pb-2.5 flex flex-col w-full flex-1 overflow-y-auto min-h-0 max-w-full z-10 scrollbar-hidden"
 								id="messages-container"
 								bind:this={messagesContainerElement}
 								on:scroll={(e) => {
@@ -3286,7 +3286,7 @@
 									</div>
 								</div>
 							{:else}
-								<div class=" pb-2 {dragged ? 'z-0' : 'z-10'}">
+								<div class=" pb-2 flex-shrink-0 {dragged ? 'z-0' : 'z-10'}">
 									<MessageInput
 										bind:this={messageInput}
 										{history}
