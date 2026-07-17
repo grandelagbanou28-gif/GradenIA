@@ -24,7 +24,7 @@
                 <a href="installation.html" class="nav-link active">Installation</a>
                 <a href="api.html" class="nav-link">API</a>
                 <a href="screenshots.html" class="nav-link">Captures</a>
-                <a href="https://github.com/grandelagbanou28-gif/GrdenIA" class="nav-link nav-github" target="_blank" rel="noopener">
+                <a href="https://github.com/grandelagbanou28-gif/GradenIA" class="nav-link nav-github" target="_blank" rel="noopener">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 </a>
             </div>
@@ -42,6 +42,7 @@
 
         <div class="doc-content">
             <div class="info-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
                 <strong>Prerequis :</strong> Python 3.11+, Git, Ollama. Votre PC a 15.6 GB de RAM — suffisant pour les petits modeles.
             </div>
 
@@ -49,24 +50,27 @@
 
             <div class="install-methods">
                 <div class="method-card">
-                    <div class="method-icon">⚡</div>
+                    <div class="method-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
                     <h3>Installation rapide (Windows)</h3>
                     <p>Double-cliquez sur <code>install.bat</code> pour installer automatiquement.</p>
                     <pre><code># Le script fait tout pour vous :
 # - Clone le depot
 # - Installe Python + dependances
 # - Installe Ollama + modeles
-# - Installe les modeles IA recommandes
 install.bat</code></pre>
                 </div>
 
                 <div class="method-card">
-                    <div class="method-icon">🔧</div>
+                    <div class="method-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </div>
                     <h3>Installation manuelle</h3>
                     <p>Pour plus de controle sur chaque etape.</p>
                     <pre><code># 1. Cloner le depot
-git clone https://github.com/grandelagbanou28-gif/GrdenIA.git
-cd GrdenIA
+git clone https://github.com/grandelagbanou28-gif/GradenIA.git
+cd GradenIA
 
 # 2. Creer un environnement virtuel
 python -m venv venv
@@ -80,18 +84,17 @@ python launch.py</code></pre>
                 </div>
 
                 <div class="method-card">
-                    <div class="method-icon">🐳</div>
+                    <div class="method-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
                     <h3>Avec Docker</h3>
                     <p>Pour les utilisateurs avances qui preferent Docker.</p>
                     <pre><code># Cloner le depot
-git clone https://github.com/grandelagbanou28-gif/GrdenIA.git
-cd GrdenIA
+git clone https://github.com/grandelagbanou28-gif/GradenIA.git
+cd GradenIA
 
 # Lancer avec Docker Compose
-docker-compose up -d
-
-# Voir les logs
-docker-compose logs -f</code></pre>
+docker-compose up -d</code></pre>
                 </div>
             </div>
 
@@ -109,14 +112,9 @@ winget install Ollama.Ollama</code></pre>
             <pre><code># Installer Ollama
 curl -fsSL https://ollama.com/install.sh | sh</code></pre>
 
-            <h3>Mac</h3>
-            <pre><code># Installer avec Homebrew
-brew install ollama</code></pre>
-
             <h2>Installer les modeles IA</h2>
             <p>Voici les modeles recommandes pour votre configuration :</p>
 
-            <h3>Petits modeles (recommandes)</h3>
             <pre><code># Qwen 2.5 0.5B — Le plus rapide (397 MB)
 ollama pull qwen2.5:0.5b
 
@@ -124,16 +122,13 @@ ollama pull qwen2.5:0.5b
 ollama pull qwen2.5-coder:1.5b
 
 # Gemma 3 1B — Usage general (800 MB)
-ollama pull gemma3:1b</code></pre>
+ollama pull gemma3:1b
 
-            <h3>Grands modeles (plus lents sans GPU)</h3>
-            <pre><code># MiniCPM V4.6 — Multimodal (1.6 GB)
-ollama pull minicpm-v4.6:latest
-
-# Granite Guardian 8B — Securite (4.7 GB)
-ollama pull granite4.1-guardian:8b</code></pre>
+# MiniCPM V4.6 — Multimodal (1.6 GB)
+ollama pull minicpm-v4.6:latest</code></pre>
 
             <div class="warning-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 <strong>Attention :</strong> Sans GPU, les grands modeles (8B+) sont lents. Utilisez les petits modeles pour debuter.
             </div>
 
@@ -147,22 +142,6 @@ OLLAMA_BASE_URL=http://localhost:11434
 WEBUI_SECRET_KEY=your-secret-key-here
 DEFAULT_MODELS=qwen2.5:0.5b,qwen2.5-coder:1.5b,gemma3:1b</code></pre>
 
-            <h3>Gemini API (optionnel)</h3>
-            <p>Pour utiliser Gemini au lieu des modeles locaux :</p>
-            <ol>
-                <li>Obtenez une cle API sur <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a></li>
-                <li>Dans l'interface, allez dans <strong>Admin Settings → Connections</strong></li>
-                <li>Ajoutez votre cle Gemini API</li>
-            </ol>
-
-            <h2>Application Desktop</h2>
-            <p>Pour lancer Graden IA comme une application Windows native :</p>
-            <pre><code># Installer pywebview
-pip install pywebview
-
-# Lancer l'application desktop
-python graden_desktop.py</code></pre>
-
             <h2>Lancer l'application</h2>
             <pre><code># Demarrer Ollama (si pas deja en cours)
 ollama serve
@@ -174,6 +153,7 @@ python launch.py
 # http://localhost:8080</code></pre>
 
             <div class="success-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#065f46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 <strong>C'est parti !</strong> Ouvrez <code>http://localhost:8080</code> dans votre navigateur et commencez a discuter avec l'IA.
             </div>
 
@@ -187,10 +167,6 @@ ollama serve</code></pre>
             <pre><code># Changer le port dans launch.py
 uvicorn.run(app, host='0.0.0.0', port=8081)</code></pre>
 
-            <h3>Erreur de memoire</h3>
-            <pre><code># Utiliser un modele plus petit
-ollama pull qwen2.5:0.5b</code></pre>
-
             <h2>Etapes suivantes</h2>
             <ul>
                 <li><a href="docs.html">Lire la documentation complete</a></li>
@@ -203,7 +179,7 @@ ollama pull qwen2.5:0.5b</code></pre>
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-bottom">
-                <p>&copy; 2026 Graden IA. Fait avec ❤️ par <a href="https://github.com/grandelagbanou28-gif" target="_blank" rel="noopener">Grandel Agbanou</a>.</p>
+                <p>&copy; 2026 Graden IA. Fait avec <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444" stroke="none" style="vertical-align: middle;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> par <a href="https://github.com/grandelagbanou28-gif" target="_blank" rel="noopener">Grandel Agbanou</a>.</p>
             </div>
         </div>
     </footer>

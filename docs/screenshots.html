@@ -13,7 +13,7 @@
     <style>
         .screenshots-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
@@ -31,13 +31,14 @@
         }
         .screenshot-image {
             width: 100%;
-            height: 280px;
-            object-fit: cover;
-            background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-200) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .screenshot-image img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
         .screenshot-info {
             padding: 1.5rem;
@@ -55,6 +56,8 @@
         }
         .screenshot-tag {
             display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
             padding: 0.25rem 0.75rem;
             background: var(--gray-100);
             color: var(--gray-600);
@@ -62,6 +65,10 @@
             font-weight: 500;
             border-radius: 2rem;
             margin-top: 0.75rem;
+        }
+        .screenshot-tag svg {
+            width: 12px;
+            height: 12px;
         }
     </style>
 </head>
@@ -78,7 +85,7 @@
                 <a href="installation.html" class="nav-link">Installation</a>
                 <a href="api.html" class="nav-link">API</a>
                 <a href="screenshots.html" class="nav-link active">Captures</a>
-                <a href="https://github.com/grandelagbanou28-gif/GrdenIA" class="nav-link nav-github" target="_blank">
+                <a href="https://github.com/grandelagbanou28-gif/GradenIA" class="nav-link nav-github" target="_blank" rel="noopener">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 </a>
             </div>
@@ -91,84 +98,71 @@
     <main>
         <section class="page-header">
             <h1>Captures d'ecran</h1>
-            <p>Decouvrez l'interface de Graden IA</p>
+            <p>Decouvrez l'interface reelle de Graden IA</p>
         </section>
 
         <div class="doc-content">
             <div class="screenshots-grid">
                 <div class="screenshot-card">
-                    <div class="screenshot-image">💬</div>
+                    <div class="screenshot-image">
+                        <img src="screenshots/home.png" alt="Page d'accueil Graden IA" loading="lazy">
+                    </div>
                     <div class="screenshot-info">
-                        <h3>Chat Principal</h3>
-                        <p>Interface de conversation intuitive avec support du streaming en temps reel.</p>
-                        <span class="screenshot-tag">Interface</span>
+                        <h3>Page d'accueil</h3>
+                        <p>Ecran d'accueil avec selection de modele et suggestions de conversation.</p>
+                        <span class="screenshot-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                            Accueil
+                        </span>
                     </div>
                 </div>
 
                 <div class="screenshot-card">
-                    <div class="screenshot-image">🧠</div>
+                    <div class="screenshot-image">
+                        <img src="screenshots/chat.png" alt="Chat Graden IA" loading="lazy">
+                    </div>
                     <div class="screenshot-info">
-                        <h3>Selection de Modele</h3>
-                        <p>Choisissez parmi les modeles IA disponibles en un clic.</p>
-                        <span class="screenshot-tag">Modeles</span>
+                        <h3>Chat IA</h3>
+                        <p>Conversation avec qwen2.5:0.5b. Reponses en temps reel avec streaming.</p>
+                        <span class="screenshot-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            Conversation
+                        </span>
                     </div>
                 </div>
 
                 <div class="screenshot-card">
-                    <div class="screenshot-image">🌙</div>
-                    <div class="screenshot-info">
-                        <h3>Mode Sombre</h3>
-                        <p>Interface elegante en mode sombre pour un confort visuel optimal.</p>
-                        <span class="screenshot-tag">Theme</span>
+                    <div class="screenshot-image">
+                        <img src="screenshots/settings.png" alt="Parametres Graden IA" loading="lazy">
                     </div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="screenshot-image">📁</div>
                     <div class="screenshot-info">
-                        <h3>Upload de Fichiers</h3>
-                        <p>Envoyez des fichiers et des dossiers pour les analyser.</p>
-                        <span class="screenshot-tag">Fichiers</span>
-                    </div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="screenshot-image">⚙️</div>
-                    <div class="screenshot-info">
-                        <h3>Parametres</h3>
-                        <p>Configuration avancee de l'application et des modeles.</p>
-                        <span class="screenshot-tag">Admin</span>
-                    </div>
-                </div>
-
-                <div class="screenshot-card">
-                    <div class="screenshot-image">🖥️</div>
-                    <div class="screenshot-info">
-                        <h3>Application Desktop</h3>
-                        <p>Fenetre native Windows pour une integration parfaite.</p>
-                        <span class="screenshot-tag">Desktop</span>
+                        <h3>Parametres Admin</h3>
+                        <p>Panneau d'administration complet : modeles, connexions, securite et plus.</p>
+                        <span class="screenshot-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                            Administration
+                        </span>
                     </div>
                 </div>
             </div>
 
-            <h2 style="margin-top: 4rem;">Voir les captures en haute resolution</h2>
-            <p>
-                Les captures d'ecran complete sont disponibles sur
-                <a href="https://github.com/grandelagbanou28-gif/GrdenIA/tree/main/static/assets/images" target="_blank">GitHub</a>.
-            </p>
-
-            <h2>Tester vous-meme</h2>
+            <h2 style="margin-top: 4rem;">Tester vous-meme</h2>
             <p>
                 La meilleure facon de decouvrir Graden IA est de l'installer et de l'essayer !
                 Suivez le <a href="installation.html">guide d'installation</a> pour commencer.
             </p>
+
+            <div class="info-box" style="margin-top: 2rem;">
+                <strong>Source :</strong> Le code source complet est disponible sur
+                <a href="https://github.com/grandelagbanou28-gif/GradenIA" target="_blank" rel="noopener">GitHub</a>.
+            </div>
         </div>
     </main>
 
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-bottom">
-                <p>&copy; 2026 Graden IA. Fait avec ❤️ par <a href="https://github.com/grandelagbanou28-gif" target="_blank">Grandel Agbanou</a>.</p>
+                <p>&copy; 2026 Graden IA. Fait avec <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444" stroke="none" style="vertical-align: middle;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> par <a href="https://github.com/grandelagbanou28-gif" target="_blank" rel="noopener">Grandel Agbanou</a>.</p>
             </div>
         </div>
     </footer>
